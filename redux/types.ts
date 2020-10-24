@@ -1,0 +1,1 @@
+export const SET_COUNT: string = "countReducer/SET_COUNT"

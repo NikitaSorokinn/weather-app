@@ -19,9 +19,7 @@ export const MainPageHeadTags: React.FC<IMainPageHeadTags> = (
     return (
         <>
             <title>{title}</title>
-            <meta name={'description'}
-                  content={description}
-            />
+            <meta name={'description'} content={description}/>
             <meta property={'og:title'} content={title}/>
             <meta property={'og:type'} content={type}/>
             <meta property={'og:url'} content={url}/>

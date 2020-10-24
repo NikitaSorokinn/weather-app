@@ -1,0 +1,19 @@
+@import "styles/config";
+
+.DateHeader__header {
+  height: 50px;
+  background-color: $color--1;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.DateHeader__header__div {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.DateHeader__header__div__p {
+  font-size: 1.5rem;
+}
