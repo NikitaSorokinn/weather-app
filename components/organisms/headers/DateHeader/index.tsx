@@ -2,7 +2,7 @@ import React from 'react'
 
 import classes from "./style.module.scss"
 
-export const DateHeader = (): JSX.Element => {
+export const DateHeader: React.FC = (): JSX.Element => {
 
     const currentDate: string = getCurrentDateString()
 
@@ -29,10 +29,10 @@ function getCurrentDateString(): string {
 function addDaySuffix(day: number): string {
 
     const suffix: string =
-        (day % 10 === 1 && day !== 11) ? 'st'
-            : (day % 10 === 2 && day !== 12) ? 'nd'
-            : (day % 10 === 3 && day !== 13) ? 'rd'
-                : 'th'
+          (day % 10 === 1 && day !== 11) ? 'st'
+        : (day % 10 === 2 && day !== 12) ? 'nd'
+        : (day % 10 === 3 && day !== 13) ? 'rd'
+        : 'th'
 
     return `${day}${suffix}`
 }

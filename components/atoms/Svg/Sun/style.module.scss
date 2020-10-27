@@ -1,0 +1,28 @@
+$sun-top: 0;
+$sun-right: 10px;
+
+.SunSvg__img {
+    width: 60vw;
+    height: 60vh;
+    position: fixed;
+    top: $sun-top;
+    right: $sun-right;
+    z-index: 0;
+
+    animation-duration: 1.5s;
+    animation-name: animateSunSvg__img;
+}
+
+@keyframes animateSunSvg__img {
+    from {
+        top: -200px;
+        right: -200px;
+        opacity: 0;
+    }
+
+    to {
+        top: $sun-top;
+        right: $sun-right;
+        opacity: 1;
+    }
+}

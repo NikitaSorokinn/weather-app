@@ -1,7 +1,9 @@
 import React from "react";
 import {HomeTemplate} from "../components/templates/Home";
 
-export default function Home(): JSX.Element {
+const Home: React.FC = (): JSX.Element => {
 
   return <HomeTemplate/>
 }
+
+export default Home

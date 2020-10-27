@@ -1,9 +1,15 @@
 import React from 'react'
 
 import {DateHeader} from "../../organisms/headers/DateHeader";
+import {WeatherForecastBody} from "../../organisms/bodies/WeatherForecast";
 
-export const HomeTemplate = () => {
+import classes from "./style.module.scss";
+
+export const HomeTemplate: React.FC = (): JSX.Element => {
     return (
-        <DateHeader/>
+        <div className={classes.HomeTemplate__div}>
+            <DateHeader/>
+            <WeatherForecastBody/>
+        </div>
     )
 }

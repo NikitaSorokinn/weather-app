@@ -1,10 +1,9 @@
 @import "styles/config";
 
 .DateHeader__header {
+  z-index: 1;
   height: 50px;
-  background-color: $color--1;
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
+  background-color: $backgroundColor--3;
 }
 
 .DateHeader__header__div {

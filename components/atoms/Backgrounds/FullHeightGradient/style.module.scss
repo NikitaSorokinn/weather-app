@@ -1,0 +1,11 @@
+@import "styles/config";
+
+.FullHeightGradientSun__div {
+    background: linear-gradient(0deg, $backgroundColor--1 32%, $backgroundColor--2 100%);
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

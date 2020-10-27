@@ -8,13 +8,14 @@ export interface IMainPageHeadTags {
     url?: string
 }
 
-export const MainPageHeadTags: React.FC<IMainPageHeadTags> = (
-    {
+export const MainPageHeadTags: React.FC<IMainPageHeadTags> =
+    ({
         title= 'WeatherApp',
         description = '6 days weather forecast app. Find out the weather of the capitals of the world',
         type= 'website',
         url= appVar.url
-    }) => {
+    })
+: JSX.Element => {
 
     return (
         <>
