@@ -1,0 +1,14 @@
+.WeatherAdditionalInfo__div {
+    width: 49.9%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.WeatherAdditionalInfo__div__p {
+    text-align: center;
+    opacity: 0.5;
+    letter-spacing: 5px;
+    font-size: 1.3rem;
+    margin: 0;
+}
