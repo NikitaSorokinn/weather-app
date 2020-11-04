@@ -1,3 +1,5 @@
+@import "styles/config";
+
 .WeatherAdditionalInfo__div {
     width: 49.9%;
     display: flex;
@@ -9,6 +11,13 @@
     text-align: center;
     opacity: 0.5;
     letter-spacing: 5px;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     margin: 0;
+}
+
+@media (max-width: $width--phone) {
+    .WeatherAdditionalInfo__div__p {
+        font-size: 0.7rem;
+        letter-spacing: 3px;
+    }
 }

@@ -33,16 +33,10 @@
 }
 
 .WeatherCard__div__top__left{
-    width: 50%;
+    width: 60%;
     height: 100%;
     display: flex;
     flex-direction: column;
-}
-
-.WeatherCard__div__top__right{
-    width: 50%;
-    display: flex;
-    flex-direction: row;
 }
 
 .WeatherCard__div__top__left__additionalInfo {
@@ -56,6 +50,23 @@
     width: 0.2%;
     background-color: $colorFont--1;
     opacity: 0.5;
+}
+
+.WeatherCard__div__top__right {
+    display: flex;
+    width: 40%;
+}
+
+.WeatherCard__div__top__right__stars {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    width:45%;
+    height:100%;
+    display:block;
+    background:url(../../../../public/stars.png) repeat bottom center;
+    z-index:0;
 }
 
 @keyframes WeatherCardAppear {
