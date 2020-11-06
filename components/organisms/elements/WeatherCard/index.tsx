@@ -7,6 +7,7 @@ import WeatherAdditionalInfoStyle from './styleWeatherAdditionalInfo.module.scss
 import WeatherCloudsStyle from './styleWeatherClouds.module.scss'
 import ShowplaceStyle from './styleShowplace.module.scss'
 import PlaceNameStyle from './stylePlaceName.module.scss'
+import CityCardStyle from './styleCityCard.module.scss'
 
 export const WeatherCard: React.FC = (): JSX.Element => {
 
@@ -30,7 +31,16 @@ export const WeatherCard: React.FC = (): JSX.Element => {
                 </div>
             </div>
             <div className={WeatherCardStyle.WeatherCard__div__bottom}>
-
+                <div className={WeatherCardStyle.WeatherCard__div__bottom__half1}>
+                    <CityCard
+                        img={'./london-color.svg'}
+                        cityName={'London'}
+                        isActive={true}
+                    />
+                    <CityCard img={'./moscow.svg'} cityName={'Moscow'}/>
+                    <CityCard img={'./paris.svg'} cityName={'Paris'}/>
+                    <CityCard img={'./burj-al-arab.svg'} cityName={'Dubai'}/>
+                </div>
             </div>
         </div>
     )
@@ -107,6 +117,28 @@ export const PlaceName: React.FC<IPlaceName> = ({placeName}): JSX.Element => {
         <div className={PlaceNameStyle.PlaceName__div}>
             <p className={PlaceNameStyle.PlaceName__div__p}>{placeName}</p>
             <div className={PlaceNameStyle.PlaceName__div__div}/>
+        </div>
+    )
+}
+
+export interface ICityCard {
+    img: string
+    cityName: string
+    isActive?: boolean
+}
+export const CityCard: React.FC<ICityCard> = ({img, cityName, isActive = false}): JSX.Element => {
+
+    const divStyle =
+        isActive ?
+            `${CityCardStyle.CityCard__div} ${CityCardStyle.CityCard__div__activeCity}`
+            :
+            CityCardStyle.CityCard__div
+
+
+    return (
+        <div className={divStyle}>
+            <img className={CityCardStyle.CityCard__div__img} src={img} alt=" "/>
+            <p className={CityCardStyle.CityCard__div__p}>{cityName}</p>
         </div>
     )
 }

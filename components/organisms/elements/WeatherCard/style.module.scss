@@ -69,6 +69,22 @@
     z-index:0;
 }
 
+.WeatherCard__div__bottom__half1 {
+    width: 30%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 10px;
+
+    &::-webkit-scrollbar{
+        width: 7px;
+        background-color: #F5F5F5;
+    }
+
+    &::-webkit-scrollbar-thumb{
+        background-color: lightgray;
+    }
+}
+
 @keyframes WeatherCardAppear {
     0% {
         right: 2000px;
@@ -78,6 +94,11 @@
     }
 }
 
+@media (max-width: $width--tablet) {
+    .WeatherCard__div__bottom__half1 {
+        display: none;
+    }
+}
 @media (max-width: $width--phone) {
     .WeatherCard__div {
         width: 90vw;

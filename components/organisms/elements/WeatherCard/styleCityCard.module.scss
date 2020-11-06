@@ -1,0 +1,44 @@
+@import "styles/config";
+
+@mixin setCityBorder($color) {
+    border: 3px solid $color;
+    border-radius: 10px;
+}
+
+.CityCard__div {
+    padding: 5px;
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5px;
+    transition: all 100ms;
+    border: 0 solid;
+    background-color: white;
+    user-select: none;
+
+    &:hover {
+        @include setCityBorder($color--3);
+        transition: all 100ms;
+        cursor: pointer;
+    }
+    &:active {
+        @include setCityBorder($color--5);
+    }
+}
+
+.CityCard__div__activeCity {
+    @include setCityBorder($color--3)
+}
+
+.CityCard__div__img {
+    height: 70%;
+}
+
+.CityCard__div__p {
+    color: grey;
+    letter-spacing: 3px;
+    font-size: x-large;
+    margin-left: 10px;
+}
