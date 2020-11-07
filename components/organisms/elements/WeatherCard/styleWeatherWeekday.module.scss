@@ -1,0 +1,44 @@
+@import "styles/config";
+
+@mixin WeatherWeekdayMixin__p($color) {
+    text-align: center;
+    color: $color;
+    font-size: 1.2rem;
+}
+
+.WeatherWeekday__div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 10px;
+    width: 20%;
+}
+
+.WeatherWeekday__div__p {
+    @include WeatherWeekdayMixin__p($color--6);
+}
+
+.WeatherWeekday__div__p__weekday {
+    margin-bottom: 0;
+}
+
+.WeatherWeekday__div__celsius {
+    @include WeatherWeekdayMixin__p($color--5);
+    margin: 0;
+}
+
+.WeatherWeekday__div__img {
+    height: 40%;
+}
+
+@media (max-width: $width--tablet) {
+    .WeatherWeekday__div__p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: $width--phone) {
+    .WeatherWeekday__div__p {
+        font-size: 0.7rem;
+    }
+}

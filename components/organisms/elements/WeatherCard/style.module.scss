@@ -85,6 +85,13 @@
     }
 }
 
+.WeatherCard__div__bottom__half2{
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
 @keyframes WeatherCardAppear {
     0% {
         right: 2000px;
@@ -97,6 +104,10 @@
 @media (max-width: $width--tablet) {
     .WeatherCard__div__bottom__half1 {
         display: none;
+    }
+
+    .WeatherCard__div__bottom__half2 {
+        width: 100%;
     }
 }
 @media (max-width: $width--phone) {

@@ -8,6 +8,7 @@ import WeatherCloudsStyle from './styleWeatherClouds.module.scss'
 import ShowplaceStyle from './styleShowplace.module.scss'
 import PlaceNameStyle from './stylePlaceName.module.scss'
 import CityCardStyle from './styleCityCard.module.scss'
+import WeatherWeekdayStyle from './styleWeatherWeekday.module.scss'
 
 export const WeatherCard: React.FC = (): JSX.Element => {
 
@@ -40,6 +41,38 @@ export const WeatherCard: React.FC = (): JSX.Element => {
                     <CityCard img={'./moscow.svg'} cityName={'Moscow'}/>
                     <CityCard img={'./paris.svg'} cityName={'Paris'}/>
                     <CityCard img={'./burj-al-arab.svg'} cityName={'Dubai'}/>
+                </div>
+                <div className={WeatherCardStyle.WeatherCard__div__bottom__half2}>
+                    <WeatherWeekday
+                        img={'./285ec93-cloudy.svg'}
+                        celsius={'12°'}
+                        weekday={'MON'}
+                        description={'Light freezing rain falling in fine pieces'}
+                    />
+                    <WeatherWeekday
+                        img={'./285ec93-cloudy.svg'}
+                        celsius={'12°'}
+                        weekday={'MON'}
+                        description={'Thunderstorm conditions'}
+                    />
+                    <WeatherWeekday
+                        img={'./285ec93-cloudy.svg'}
+                        celsius={'12°'}
+                        weekday={'MON'}
+                        description={'Light freezing rain falling in fine pieces'}
+                    />
+                    <WeatherWeekday
+                        img={'./285ec93-cloudy.svg'}
+                        celsius={'12°'}
+                        weekday={'MON'}
+                        description={'Light freezing rain falling in fine pieces'}
+                    />
+                    <WeatherWeekday
+                        img={'./285ec93-cloudy.svg'}
+                        celsius={'12°'}
+                        weekday={'MON'}
+                        description={'Light freezing rain falling in fine pieces'}
+                    />
                 </div>
             </div>
         </div>
@@ -134,11 +167,34 @@ export const CityCard: React.FC<ICityCard> = ({img, cityName, isActive = false})
             :
             CityCardStyle.CityCard__div
 
-
     return (
         <div className={divStyle}>
             <img className={CityCardStyle.CityCard__div__img} src={img} alt=" "/>
             <p className={CityCardStyle.CityCard__div__p}>{cityName}</p>
+        </div>
+    )
+}
+
+export interface IWeatherWeekday {
+    weekday: string
+    img: string
+    celsius: string
+    description: string
+}
+export const WeatherWeekday: React.FC<IWeatherWeekday> =
+    ({weekday, img, celsius, description}): JSX.Element => {
+
+    return (
+        <div className={WeatherWeekdayStyle.WeatherWeekday__div}>
+            <p
+                className={`${WeatherWeekdayStyle.WeatherWeekday__div__p} 
+                    ${WeatherWeekdayStyle.WeatherWeekday__div__p__weekday}`}
+            >
+                {weekday}
+            </p>
+            <img className={WeatherWeekdayStyle.WeatherWeekday__div__img} src={img} alt=" "/>
+            <p className={WeatherWeekdayStyle.WeatherWeekday__div__celsius}>{celsius}</p>
+            <p className={WeatherWeekdayStyle.WeatherWeekday__div__p}>{description}</p>
         </div>
     )
 }
