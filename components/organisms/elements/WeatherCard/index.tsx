@@ -27,48 +27,48 @@ export const WeatherCard: React.FC = (): JSX.Element => {
                 <div className={WeatherCardStyle.WeatherCard__div__top__right}>
                     <div className={WeatherCardStyle.WeatherCard__div__top__right__stars}/>
                     <WeatherClouds/>
-                    <Showplace pictureSrc={'./big-ben-in-london.svg'}/>
+                    <Showplace pictureSrc={'/big-ben-in-london.svg'}/>
                     <PlaceName placeName={'LONDON'}/>
                 </div>
             </div>
             <div className={WeatherCardStyle.WeatherCard__div__bottom}>
                 <div className={WeatherCardStyle.WeatherCard__div__bottom__half1}>
                     <CityCard
-                        img={'./london-color.svg'}
+                        img={'/london-color.svg'}
                         cityName={'London'}
                         isActive={true}
                     />
-                    <CityCard img={'./moscow.svg'} cityName={'Moscow'}/>
-                    <CityCard img={'./paris.svg'} cityName={'Paris'}/>
-                    <CityCard img={'./burj-al-arab.svg'} cityName={'Dubai'}/>
+                    <CityCard img={'/moscow.svg'} cityName={'Moscow'}/>
+                    <CityCard img={'/paris.svg'} cityName={'Paris'}/>
+                    <CityCard img={'/burj-al-arab.svg'} cityName={'Dubai'}/>
                 </div>
                 <div className={WeatherCardStyle.WeatherCard__div__bottom__half2}>
                     <WeatherWeekday
-                        img={'./285ec93-cloudy.svg'}
+                        img={'/285ec93-cloudy.svg'}
                         celsius={'12°'}
                         weekday={'MON'}
                         description={'Light freezing rain falling in fine pieces'}
                     />
                     <WeatherWeekday
-                        img={'./285ec93-cloudy.svg'}
+                        img={'/285ec93-cloudy.svg'}
                         celsius={'12°'}
                         weekday={'MON'}
                         description={'Thunderstorm conditions'}
                     />
                     <WeatherWeekday
-                        img={'./285ec93-cloudy.svg'}
+                        img={'/285ec93-cloudy.svg'}
                         celsius={'12°'}
                         weekday={'MON'}
                         description={'Light freezing rain falling in fine pieces'}
                     />
                     <WeatherWeekday
-                        img={'./285ec93-cloudy.svg'}
+                        img={'/285ec93-cloudy.svg'}
                         celsius={'12°'}
                         weekday={'MON'}
                         description={'Light freezing rain falling in fine pieces'}
                     />
                     <WeatherWeekday
-                        img={'./285ec93-cloudy.svg'}
+                        img={'/285ec93-cloudy.svg'}
                         celsius={'12°'}
                         weekday={'MON'}
                         description={'Light freezing rain falling in fine pieces'}
@@ -115,14 +115,17 @@ export const WeatherAdditionalInfo: React.FC<IWeatherAdditionalInfo> = ({name, v
 }
 
 export const WeatherClouds: React.FC = (): JSX.Element => {
+
+    const cloudImg: string = '/big-cloud.svg'
+
     return (
         <>
-            <img className={WeatherCloudsStyle.WeatherClouds__1} src={'./big-cloud.svg'} alt={' '}/>
-            <img className={WeatherCloudsStyle.WeatherClouds__2} src={'./big-cloud.svg'} alt={' '}/>
-            <img className={WeatherCloudsStyle.WeatherClouds__3} src={'./big-cloud.svg'} alt={' '}/>
-            <img className={WeatherCloudsStyle.WeatherClouds__4} src={'./big-cloud.svg'} alt={' '}/>
-            <img className={WeatherCloudsStyle.WeatherClouds__5} src={'./big-cloud.svg'} alt={' '}/>
-            <img className={WeatherCloudsStyle.WeatherClouds__6} src={'./big-cloud.svg'} alt={' '}/>
+            <img className={WeatherCloudsStyle.WeatherClouds__1} src={cloudImg} alt={' '}/>
+            <img className={WeatherCloudsStyle.WeatherClouds__2} src={cloudImg} alt={' '}/>
+            <img className={WeatherCloudsStyle.WeatherClouds__3} src={cloudImg} alt={' '}/>
+            <img className={WeatherCloudsStyle.WeatherClouds__4} src={cloudImg} alt={' '}/>
+            <img className={WeatherCloudsStyle.WeatherClouds__5} src={cloudImg} alt={' '}/>
+            <img className={WeatherCloudsStyle.WeatherClouds__6} src={cloudImg} alt={' '}/>
         </>
     )
 }

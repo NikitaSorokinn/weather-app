@@ -1,9 +1,17 @@
-import React from "react";
-import {HomeTemplate} from "../components/templates/Home";
+import React, {useEffect} from "react";
+import {useRouter} from "next/router";
 
-const Home: React.FC = (): JSX.Element => {
+const IndexPage: React.FC = (): JSX.Element => {
 
-  return <HomeTemplate/>
+  const router = useRouter()
+
+  useEffect(()=>{
+      router.push('cities/London').then()
+  },[])
+
+  return (
+      <p>Loading...</p>
+  )
 }
 
-export default Home
+export default IndexPage

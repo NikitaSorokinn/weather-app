@@ -1,5 +1,5 @@
 import React from "react";
-import {appVar} from "../../../config/variables";
+import {globalVar} from "../../../config/variables";
 
 export interface IMainPageHeadTags {
     title?: string
@@ -13,7 +13,7 @@ export const MainPageHeadTags: React.FC<IMainPageHeadTags> =
         title= 'WeatherApp',
         description = '6 days weather forecast app. Find out the weather of the capitals of the world',
         type= 'website',
-        url= appVar.url
+        url= globalVar.url
     })
 : JSX.Element => {
 
