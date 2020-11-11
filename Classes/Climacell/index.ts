@@ -1,12 +1,12 @@
+export interface IClimacellConfigParams {
+    lat: string,
+    lon: string
+}
+
 export interface IClimacell extends IClimacellConfigParams {
     apiKey: string,
 
     getPrediction(): Promise<object>
-}
-
-export interface IClimacellConfigParams {
-    lat: string,
-    lon: string
 }
 
 export class Climacell implements IClimacell {
