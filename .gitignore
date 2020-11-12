@@ -33,7 +33,4 @@ yarn-error.log*
 # vercel
 .vercel
 
-# imgs
-/public
-
-/config/variables.ts
+/config/config.ts
