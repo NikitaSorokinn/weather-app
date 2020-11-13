@@ -1,11 +1,7 @@
 import {combineReducers} from "redux";
 
-import {countReducer, ICountReducer} from "./reducers/countReducer";
-
-export interface IRootReducer {
-    count: ICountReducer
-}
+import {weatherReducer} from "./reducers/weather";
 
 export const rootReducer = combineReducers({
-    count: countReducer
+    weather: weatherReducer
 })

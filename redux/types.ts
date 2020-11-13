@@ -1,1 +1,1 @@
-export const SET_COUNT: string = "countReducer/SET_COUNT"
+export const SET_WEATHER: string = "weather/SET_WEATHER"

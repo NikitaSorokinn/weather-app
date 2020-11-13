@@ -34,13 +34,13 @@ export const WeatherCard: React.FC = (): JSX.Element => {
             <div className={WeatherCardStyle.WeatherCard__div__bottom}>
                 <div className={WeatherCardStyle.WeatherCard__div__bottom__half1}>
                     <CityCard
-                        img={'/london-color.svg'}
+                        img={'/big-ben.svg'}
                         cityName={'London'}
                         isActive={true}
                     />
                     <CityCard img={'/moscow.svg'} cityName={'Moscow'}/>
-                    <CityCard img={'/paris.svg'} cityName={'Paris'}/>
-                    <CityCard img={'/burj-al-arab.svg'} cityName={'Dubai'}/>
+                    <CityCard img={'/eiffel-tower.svg'} cityName={'Paris'}/>
+                    <CityCard img={'/burj-khalifa.svg'} cityName={'Dubai'}/>
                 </div>
                 <div className={WeatherCardStyle.WeatherCard__div__bottom__half2}>
                     <WeatherWeekday
@@ -116,7 +116,7 @@ export const WeatherAdditionalInfo: React.FC<IWeatherAdditionalInfo> = ({name, v
 
 export const WeatherClouds: React.FC = (): JSX.Element => {
 
-    const cloudImg: string = '/big-cloud.svg'
+    const cloudImg: string = '/cloud-computing.svg'
 
     return (
         <>
