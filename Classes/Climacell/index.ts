@@ -6,7 +6,7 @@ export interface IClimacellConfigParams {
 export interface IClimacell extends IClimacellConfigParams {
     apiKey: string,
 
-    getPrediction(): Promise<object>
+    getPrediction(): Promise<Array<object>|Error>
 }
 
 export class Climacell implements IClimacell {
@@ -20,7 +20,7 @@ export class Climacell implements IClimacell {
         this.lon = lon
     }
 
-    async getPrediction(): Promise<object> {
+    async getPrediction(): Promise<Array<object>|Error> {
 
         try {
             const response = await fetch(`https://api.climacell.co/v3/weather/forecast/daily?lat=${this.lat}&lon=${this.lon}`
@@ -38,7 +38,7 @@ export class Climacell implements IClimacell {
         }
     }
 
-    private getNextDayDate (plusDays: number): string {
+    getNextDayDate (plusDays: number): string {
         const data = new Date()
         const newDate = new Date(data.getFullYear(),data.getMonth(),data.getDate() + plusDays)
         const locales: string = 'en-US'
