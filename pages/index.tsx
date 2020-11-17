@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import {useRouter} from "next/router";
 import {cities} from "../config/variables";
+import {HomeTemplate} from "../components/templates/Home";
 
 const IndexPage: React.FC = (): JSX.Element => {
 
@@ -11,7 +12,7 @@ const IndexPage: React.FC = (): JSX.Element => {
   },[])
 
   return (
-      <p>Loading...</p>
+      <HomeTemplate isSun={false} isEmpty={true}/>
   )
 }
 

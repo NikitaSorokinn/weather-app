@@ -7,7 +7,6 @@ export const globalVar = {
 export interface ICities extends IClimacellConfigParams{
     name: string
 }
-
 export const cities: Array<ICities> = [
     {
         name: 'London',
@@ -15,3 +14,14 @@ export const cities: Array<ICities> = [
         lon: '0.1278'
     }
 ]
+
+export interface IStatus {
+    downloading: String
+    success: String
+    error: String
+}
+export const status: IStatus = {
+    downloading: 'downloading',
+    success: 'success',
+    error: 'error'
+}

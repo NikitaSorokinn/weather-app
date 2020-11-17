@@ -9,11 +9,12 @@ import ShowplaceStyle from './styleShowplace.module.scss'
 import PlaceNameStyle from './stylePlaceName.module.scss'
 import CityCardStyle from './styleCityCard.module.scss'
 import WeatherWeekdayStyle from './styleWeatherWeekday.module.scss'
+import {RoundAnimateFrame} from "../../../atoms/Backgrounds/RoundAnimateFrame";
 
 export const WeatherCard: React.FC = (): JSX.Element => {
 
     return (
-        <div className={WeatherCardStyle.WeatherCard__div}>
+        <RoundAnimateFrame>
             <div className={WeatherCardStyle.WeatherCard__div__top}>
                 <div className={WeatherCardStyle.WeatherCard__div__top__left}>
                     <CelsiusComponent value={'12°'}/>
@@ -75,7 +76,7 @@ export const WeatherCard: React.FC = (): JSX.Element => {
                     />
                 </div>
             </div>
-        </div>
+        </RoundAnimateFrame>
     )
 }
 

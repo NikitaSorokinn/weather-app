@@ -1,17 +1,5 @@
 @import "styles/config";
 
-.WeatherCard__div {
-    position: relative;
-    right: 0;
-    width: 80vw;
-    height: 80vh;
-    border-radius: $borderRadius;
-    overflow: hidden;
-
-    animation-duration: 1.5s;
-    animation-name: WeatherCardAppear;
-}
-
 @mixin weatherCardHalf() {
     height: 50%;
     display: flex;
@@ -22,6 +10,7 @@
 
 .WeatherCard__div__top {
     @include weatherCardHalf();
+    color: $colorFont--1;
     box-shadow: 0 1px 30px -9px $color--1;
     z-index: 1;
     background-color: $color--1;
@@ -108,10 +97,5 @@
 
     .WeatherCard__div__bottom__half2 {
         width: 100%;
-    }
-}
-@media (max-width: $width--phone) {
-    .WeatherCard__div {
-        width: 90vw;
     }
 }

@@ -2,6 +2,7 @@ $sun-top: 0;
 $sun-right: 10px;
 
 .SunSvg__img {
+    pointer-events: none;
     width: 60vw;
     height: 60vh;
     position: fixed;

@@ -2,7 +2,6 @@
 
 @mixin setCityBorder($color) {
     border: 3px solid $color;
-    border-radius: 10px;
 }
 
 .CityCard__div {
@@ -14,9 +13,10 @@
     align-items: center;
     margin-bottom: 5px;
     transition: all 100ms;
-    border: 0 solid;
     background-color: white;
     user-select: none;
+    border-radius: 10px;
+    border-color: $color--3;
 
     &:hover {
         @include setCityBorder($color--3);
@@ -25,6 +25,9 @@
     }
     &:active {
         @include setCityBorder($color--5);
+    }
+    &:focus {
+        outline: none;
     }
 }
 
