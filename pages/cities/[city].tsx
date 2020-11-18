@@ -3,11 +3,12 @@ import {HomeTemplate} from "../../components/templates/Home";
 import {NextPageContext} from "next";
 import {findIndexByCompare} from "../../functions/common";
 import {Climacell, IClimacellConfigParams} from "../../Classes/Climacell";
-import {cities, ICities} from "../../config/variables";
+import {cities, ICities, status} from "../../config/variables";
 import {useRouter} from "next/router";
 import {config} from "../../config/config";
 import {useDispatch} from "react-redux";
-import {setWeather} from "../../redux/actions/weather";
+import {setWeather, setWeatherStatus} from "../../redux/actions/weather";
+import {setError} from "../../redux/actions/error";
 
 const Home = ({weatherObj}: IHomeWeatherPredictionObj): JSX.Element =>  {
 
@@ -26,7 +27,7 @@ const Home = ({weatherObj}: IHomeWeatherPredictionObj): JSX.Element =>  {
             if (cityIndex !== null) {
                 getWeatherPrediction(cityIndex, cities, config.climacellApi).then(res => {
                     if (res instanceof Array) dispatch(setWeather(res))
-                    else errorHandler(res.name)
+                    else errorHandler(res.name, dispatch, setWeatherStatus, setError)
                 })
             }
             //city wasn't found
@@ -41,7 +42,7 @@ const Home = ({weatherObj}: IHomeWeatherPredictionObj): JSX.Element =>  {
             else errno = "Server error"
         }
 
-        if (errno !== null) errorHandler(errno)
+        if (errno !== null) errorHandler(errno, dispatch, setWeatherStatus, setError)
     },[])
 
     return <HomeTemplate/>
@@ -49,8 +50,10 @@ const Home = ({weatherObj}: IHomeWeatherPredictionObj): JSX.Element =>  {
 
 export default Home
 
-function errorHandler(error: string) {
-    console.log(error)
+function errorHandler(error: string, dispatch: (reduxAction1: void)=>void,
+            setStatusAction: (status: String) => void, setErrorAction: (error: string) => void) {
+    dispatch(setErrorAction(error))
+    dispatch(setStatusAction(status.error))
 }
 
 interface IHomePageContext extends NextPageContext {

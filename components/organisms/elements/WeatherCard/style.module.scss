@@ -81,15 +81,6 @@
     padding: 10px;
 }
 
-@keyframes WeatherCardAppear {
-    0% {
-        right: 2000px;
-    }
-    100% {
-        right: 0;
-    }
-}
-
 @media (max-width: $width--tablet) {
     .WeatherCard__div__bottom__half1 {
         display: none;

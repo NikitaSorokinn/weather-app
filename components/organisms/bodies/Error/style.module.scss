@@ -1,0 +1,36 @@
+@import "styles/config";
+
+.ErrorBody__div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.ErrorBody__div__img {
+    height: 30%;
+}
+
+@mixin textMixin () {
+    font-size: 20px;
+    text-align: center;
+}
+
+.ErrorBody__div__p {
+    @include textMixin();
+}
+
+.ErrorBody__div__div {
+    padding: 0 10px;
+    max-height: 30%;
+    overflow: auto;
+    width: 100%;
+}
+
+.ErrorBody__div__div__p {
+    @include textMixin();
+    color: $color--6;
+    margin-top: 0;
+}

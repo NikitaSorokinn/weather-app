@@ -3,22 +3,23 @@ import React from 'react'
 import {DateHeader} from "../../organisms/headers/DateHeader";
 import {WeatherForecastBody} from "../../organisms/bodies/WeatherForecast";
 import classes from "./style.module.scss";
-import {IStatus, status as statusValue} from "../../../config/variables";
+import {status as statusValue} from "../../../config/variables";
 import {FullHeightGradientBackground} from "../../atoms/Backgrounds/FullHeightGradient";
 import {SunSvg} from "../../atoms/Svg/Sun/index.jsx";
 import {BouncingLoader} from "../../atoms/Loaders/BouncingLoader";
 import {ErrorBody} from "../../organisms/bodies/Error";
+import {useSelector} from "react-redux";
+import {IRootReducer} from "../../../redux/rootReducer";
 
 interface IHomeTemplate {
     isSun?: boolean
     isEmpty?: boolean
-    status?: IStatus
 }
-export const HomeTemplate: React.FC<IHomeTemplate> = ({isSun = true, status,
+export const HomeTemplate: React.FC<IHomeTemplate> = ({isSun = true,
     isEmpty = false}): JSX.Element => {
 
     const jsxSun = isSun ? <SunSvg/> : <></>
-    const jsxBody = isEmpty? <></> : <StatusComponent status={status}/>
+    const jsxBody = isEmpty? <></> : <StatusComponent/>
 
     return (
         <div className={classes.HomeTemplate__div}>
@@ -31,20 +32,17 @@ export const HomeTemplate: React.FC<IHomeTemplate> = ({isSun = true, status,
     )
 }
 
-interface IStatusComponent {
-    status: IStatus|undefined
-}
-const StatusComponent: React.FC<IStatusComponent> = ({status}): JSX.Element => {
+const StatusComponent: React.FC = (): JSX.Element => {
 
-    let currentStatus: IStatus | undefined | String = status
-    if (status === undefined) {
-        currentStatus = statusValue.success
-    }
+    const {status, error} = useSelector((state: IRootReducer) => ({
+        status: state.weather.status,
+        error: state.error.error
+    }))
 
     let jsx = <BouncingLoader/>
 
-    if (currentStatus === statusValue.success) jsx = <WeatherForecastBody/>
-    else if (currentStatus === statusValue.error) jsx = <ErrorBody error={'New Error'}/>
+    if (status === statusValue.success) jsx = <WeatherForecastBody/>
+    else if (status === statusValue.error) jsx = <ErrorBody error={error}/>
 
     return (
         jsx
