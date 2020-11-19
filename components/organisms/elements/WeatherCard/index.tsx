@@ -10,73 +10,87 @@ import PlaceNameStyle from './stylePlaceName.module.scss'
 import CityCardStyle from './styleCityCard.module.scss'
 import WeatherWeekdayStyle from './styleWeatherWeekday.module.scss'
 import {RoundAnimateFrame} from "../../../atoms/Backgrounds/RoundAnimateFrame";
+import {useSelector} from "react-redux";
+import {IRootReducer} from "../../../../redux/rootReducer";
 
 export const WeatherCard: React.FC = (): JSX.Element => {
 
-    return (
-        <RoundAnimateFrame>
-            <div className={WeatherCardStyle.WeatherCard__div__top}>
-                <div className={WeatherCardStyle.WeatherCard__div__top__left}>
-                    <CelsiusComponent value={'12°'}/>
-                    <WeatherNameComponent value={'CLOUDY'}/>
-                    <div className={WeatherCardStyle.WeatherCard__div__top__left__additionalInfo}>
-                        <WeatherAdditionalInfo name={'HUMIDITY'} value={'65%'}/>
-                        <div className={WeatherCardStyle.WeatherCard__div__top__left__additionalInfo__border}/>
-                        <WeatherAdditionalInfo name={'WIND'} value={'35%'}/>
+    const { weatherObj } = useSelector((state: IRootReducer) => ({
+        weatherObj: state.weather.weatherObj
+    }))
+
+    let jsx = <></>
+
+    if (weatherObj !== null) {
+
+        jsx =
+            <RoundAnimateFrame>
+                <div className={WeatherCardStyle.WeatherCard__div__top}>
+                    <div className={WeatherCardStyle.WeatherCard__div__top__left}>
+                        <CelsiusComponent value={weatherObj.daily[0].temp[0].min.value.toString()}/>
+                        <WeatherNameComponent value={'CLOUDY'}/>
+                        <div className={WeatherCardStyle.WeatherCard__div__top__left__additionalInfo}>
+                            <WeatherAdditionalInfo name={'HUMIDITY'} value={'65%'}/>
+                            <div className={WeatherCardStyle.WeatherCard__div__top__left__additionalInfo__border}/>
+                            <WeatherAdditionalInfo name={'WIND'} value={'35%'}/>
+                        </div>
+                    </div>
+                    <div className={WeatherCardStyle.WeatherCard__div__top__right}>
+                        <div className={WeatherCardStyle.WeatherCard__div__top__right__stars}/>
+                        <WeatherClouds/>
+                        <Showplace pictureSrc={'/big-ben-in-london.svg'}/>
+                        <PlaceName placeName={'LONDON'}/>
                     </div>
                 </div>
-                <div className={WeatherCardStyle.WeatherCard__div__top__right}>
-                    <div className={WeatherCardStyle.WeatherCard__div__top__right__stars}/>
-                    <WeatherClouds/>
-                    <Showplace pictureSrc={'/big-ben-in-london.svg'}/>
-                    <PlaceName placeName={'LONDON'}/>
+                <div className={WeatherCardStyle.WeatherCard__div__bottom}>
+                    <div className={WeatherCardStyle.WeatherCard__div__bottom__half1}>
+                        <CityCard
+                            img={'/big-ben.svg'}
+                            cityName={'London'}
+                            isActive={true}
+                        />
+                        <CityCard img={'/moscow.svg'} cityName={'Moscow'}/>
+                        <CityCard img={'/eiffel-tower.svg'} cityName={'Paris'}/>
+                        <CityCard img={'/burj-khalifa.svg'} cityName={'Dubai'}/>
+                    </div>
+                    <div className={WeatherCardStyle.WeatherCard__div__bottom__half2}>
+                        <WeatherWeekday
+                            img={'/285ec93-cloudy.svg'}
+                            celsius={'12°'}
+                            weekday={'MON'}
+                            description={'Light freezing rain falling in fine pieces'}
+                        />
+                        <WeatherWeekday
+                            img={'/285ec93-cloudy.svg'}
+                            celsius={'12°'}
+                            weekday={'MON'}
+                            description={'Thunderstorm conditions'}
+                        />
+                        <WeatherWeekday
+                            img={'/285ec93-cloudy.svg'}
+                            celsius={'12°'}
+                            weekday={'MON'}
+                            description={'Light freezing rain falling in fine pieces'}
+                        />
+                        <WeatherWeekday
+                            img={'/285ec93-cloudy.svg'}
+                            celsius={'12°'}
+                            weekday={'MON'}
+                            description={'Light freezing rain falling in fine pieces'}
+                        />
+                        <WeatherWeekday
+                            img={'/285ec93-cloudy.svg'}
+                            celsius={'12°'}
+                            weekday={'MON'}
+                            description={'Light freezing rain falling in fine pieces'}
+                        />
+                    </div>
                 </div>
-            </div>
-            <div className={WeatherCardStyle.WeatherCard__div__bottom}>
-                <div className={WeatherCardStyle.WeatherCard__div__bottom__half1}>
-                    <CityCard
-                        img={'/big-ben.svg'}
-                        cityName={'London'}
-                        isActive={true}
-                    />
-                    <CityCard img={'/moscow.svg'} cityName={'Moscow'}/>
-                    <CityCard img={'/eiffel-tower.svg'} cityName={'Paris'}/>
-                    <CityCard img={'/burj-khalifa.svg'} cityName={'Dubai'}/>
-                </div>
-                <div className={WeatherCardStyle.WeatherCard__div__bottom__half2}>
-                    <WeatherWeekday
-                        img={'/285ec93-cloudy.svg'}
-                        celsius={'12°'}
-                        weekday={'MON'}
-                        description={'Light freezing rain falling in fine pieces'}
-                    />
-                    <WeatherWeekday
-                        img={'/285ec93-cloudy.svg'}
-                        celsius={'12°'}
-                        weekday={'MON'}
-                        description={'Thunderstorm conditions'}
-                    />
-                    <WeatherWeekday
-                        img={'/285ec93-cloudy.svg'}
-                        celsius={'12°'}
-                        weekday={'MON'}
-                        description={'Light freezing rain falling in fine pieces'}
-                    />
-                    <WeatherWeekday
-                        img={'/285ec93-cloudy.svg'}
-                        celsius={'12°'}
-                        weekday={'MON'}
-                        description={'Light freezing rain falling in fine pieces'}
-                    />
-                    <WeatherWeekday
-                        img={'/285ec93-cloudy.svg'}
-                        celsius={'12°'}
-                        weekday={'MON'}
-                        description={'Light freezing rain falling in fine pieces'}
-                    />
-                </div>
-            </div>
-        </RoundAnimateFrame>
+            </RoundAnimateFrame>
+    }
+
+    return (
+        jsx
     )
 }
 
@@ -86,7 +100,7 @@ export interface ICelsiusComponent {
 export const CelsiusComponent: React.FC<ICelsiusComponent> = ({value}): JSX.Element => {
     return (
         <div className={CelsiusComponentStyle.CelsiusComponent__div}>
-            <p className={CelsiusComponentStyle.CelsiusComponent__div__p}>{value}</p>
+            <p className={CelsiusComponentStyle.CelsiusComponent__div__p}>{`${value}°`}</p>
         </div>
     )
 }

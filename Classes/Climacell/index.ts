@@ -1,3 +1,5 @@
+import {IWeatherObj} from "../../interfaces/weather";
+
 export interface IClimacellConfigParams {
     lat: string,
     lon: string
@@ -6,7 +8,7 @@ export interface IClimacellConfigParams {
 export interface IClimacell extends IClimacellConfigParams {
     apiKey: string,
 
-    getPrediction(): Promise<Array<object>|Error>
+    getPrediction(): Promise<IWeatherObj | Error>
 }
 
 export class Climacell implements IClimacell {
@@ -20,11 +22,11 @@ export class Climacell implements IClimacell {
         this.lon = lon
     }
 
-    async getPrediction(): Promise<Array<object>|Error> {
+    async getPrediction(): Promise<IWeatherObj | Error> {
 
         try {
-            const response = await fetch(`https://api.climacell.co/v3/weather/forecast/daily?lat=${this.lat}&lon=${this.lon}`
-                + `&unit_system=si&fields=weather_code%2Chumidity%2Cwind_speed&apikey=${this.apiKey}`
+            const responseDaily = await fetch(`https://api.climacell.co/v3/weather/forecast/daily?lat=${this.lat}&lon=${this.lon}`
+                + `&unit_system=si&fields=weather_code%2Chumidity%2Cwind_speed%2Ctemp&apikey=${this.apiKey}`
                 + `&start_time=now&end_time=${this.getNextDayDate(5)}`,
                 {
                     "method": "GET",
@@ -32,7 +34,11 @@ export class Climacell implements IClimacell {
                 }
             )
 
-            return await response.json()
+            const jsonDaily = await responseDaily.json()
+
+            return {
+                daily: jsonDaily
+            }
         } catch (e) {
             return new Promise(resolve => resolve(e))
         }

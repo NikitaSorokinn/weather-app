@@ -1,14 +1,15 @@
 import {SET_WEATHER, SET_WEATHER_STATUS} from "../types";
-import {IWeatherReducer} from "../reducers/weather";
+import {IWeatherReducerAction} from "../reducers/weather";
 import {IReducerAction} from "../../interfaces/redux";
+import {IWeatherObj} from "../../interfaces/weather";
 
-export function setWeather (weatherArr: Array<object>) {
-    return (dispatch: (dispatchObj: IReducerAction<IWeatherReducer>) => void) => {
+export function setWeather (weatherObj: IWeatherObj) {
+    return (dispatch: (dispatchObj: IReducerAction<IWeatherReducerAction>) => void) => {
 
-        const dispatchObj: IReducerAction<IWeatherReducer> = {
+        const dispatchObj: IReducerAction<IWeatherReducerAction> = {
             type: SET_WEATHER,
             payload: {
-                weatherArr: weatherArr
+                weatherObj: weatherObj
             }
         }
 
@@ -17,9 +18,9 @@ export function setWeather (weatherArr: Array<object>) {
 }
 
 export function setWeatherStatus (status: String) {
-    return (dispatch: (dispatchObj: IReducerAction<IWeatherReducer> ) => void) => {
+    return (dispatch: (dispatchObj: IReducerAction<IWeatherReducerAction> ) => void) => {
 
-        const dispatchObj: IReducerAction<IWeatherReducer> = {
+        const dispatchObj: IReducerAction<IWeatherReducerAction> = {
             type: SET_WEATHER_STATUS,
             payload: {
                 status: status

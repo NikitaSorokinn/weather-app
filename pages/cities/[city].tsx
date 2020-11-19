@@ -9,6 +9,7 @@ import {config} from "../../config/config";
 import {useDispatch} from "react-redux";
 import {setWeather, setWeatherStatus} from "../../redux/actions/weather";
 import {setError} from "../../redux/actions/error";
+import {IWeatherObj} from "../../interfaces/weather";
 
 const Home = ({weatherObj}: IHomeWeatherPredictionObj): JSX.Element =>  {
 
@@ -26,20 +27,18 @@ const Home = ({weatherObj}: IHomeWeatherPredictionObj): JSX.Element =>  {
 
             if (cityIndex !== null) {
                 getWeatherPrediction(cityIndex, cities, config.climacellApi).then(res => {
-                    if (res instanceof Array) dispatch(setWeather(res))
-                    else errorHandler(res.name, dispatch, setWeatherStatus, setError)
+                    if (res instanceof Error) errorHandler(res.name, dispatch, setWeatherStatus, setError)
+                    else dispatch(setWeather(res))
                 })
             }
             //city wasn't found
             else errno = `${city} wasn't found`
         }
         //server side rendering
-        else if (weatherObj instanceof Array) dispatch(setWeather(weatherObj))
+        else if (!("errno" in weatherObj)) dispatch(setWeather(weatherObj))
         //error
         else {
-            const serverError = weatherObj.errno
-            if (serverError) errno = serverError
-            else errno = "Server error"
+            errno = weatherObj.errno
         }
 
         if (errno !== null) errorHandler(errno, dispatch, setWeatherStatus, setError)
@@ -66,7 +65,7 @@ interface IErrorObj {
     errno: string
 }
 interface IHomeWeatherPredictionObj {
-    weatherObj: Array<object>|null|IErrorObj
+    weatherObj: IWeatherObj|null|IErrorObj
 }
 Home.getInitialProps = async ({query, req}: IHomePageContext): Promise<IHomeWeatherPredictionObj|null> => {
 
@@ -87,8 +86,8 @@ Home.getInitialProps = async ({query, req}: IHomePageContext): Promise<IHomeWeat
     if (cityIndex !== null) {
         const response = await getWeatherPrediction(cityIndex, cities, config.climacellApi)
 
-        if (response instanceof Array) weatherObj.weatherObj = response
-        else weatherObj.weatherObj.errno = response.name
+        if (response instanceof Error) weatherObj.weatherObj.errno = response.name
+        else weatherObj.weatherObj = response
 
         return weatherObj
     }
@@ -103,13 +102,13 @@ function getCityIndex(cities: Array<ICities>, city: string): number|null {
     return findIndexByCompare(cities, (compareElem: ICities) =>  compareElem.name === city)
 }
 
-async function getWeatherPrediction (cityIndex: number, cities: Array<ICities>, api: string): Promise<Array<object>|Error> {
+async function getWeatherPrediction (cityIndex: number, cities: Array<ICities>, api: string): Promise<IWeatherObj|Error> {
 
-    let weatherObj: Array<object> | Error = Array()
+    let weatherObj: IWeatherObj | Error = new Error()
 
     const climacellConfigParams:IClimacellConfigParams = cities[cityIndex]
     const iClimacell = new Climacell(api, climacellConfigParams.lat, climacellConfigParams.lon)
-    await iClimacell.getPrediction().then(res => {weatherObj = res})
+    await iClimacell.getPrediction().then(res => weatherObj = res)
 
     return weatherObj
 }
