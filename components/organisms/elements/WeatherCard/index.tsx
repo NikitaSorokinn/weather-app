@@ -27,7 +27,7 @@ export const WeatherCard: React.FC = (): JSX.Element => {
             <RoundAnimateFrame>
                 <div className={WeatherCardStyle.WeatherCard__div__top}>
                     <div className={WeatherCardStyle.WeatherCard__div__top__left}>
-                        <CelsiusComponent value={weatherObj.daily[0].temp[0].min.value.toString()}/>
+                        <CelsiusComponent value={weatherObj.now.temp.value}/>
                         <WeatherNameComponent value={'CLOUDY'}/>
                         <div className={WeatherCardStyle.WeatherCard__div__top__left__additionalInfo}>
                             <WeatherAdditionalInfo name={'HUMIDITY'} value={'65%'}/>
@@ -95,12 +95,15 @@ export const WeatherCard: React.FC = (): JSX.Element => {
 }
 
 export interface ICelsiusComponent {
-    value: string
+    value: number
 }
 export const CelsiusComponent: React.FC<ICelsiusComponent> = ({value}): JSX.Element => {
+
+    const temp = Math.round(value).toString()
+
     return (
         <div className={CelsiusComponentStyle.CelsiusComponent__div}>
-            <p className={CelsiusComponentStyle.CelsiusComponent__div__p}>{`${value}°`}</p>
+            <p className={CelsiusComponentStyle.CelsiusComponent__div__p}>{`${temp}°`}</p>
         </div>
     )
 }

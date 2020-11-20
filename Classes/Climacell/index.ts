@@ -1,4 +1,4 @@
-import {IWeatherObj} from "../../interfaces/weather";
+import {IWeatherDailyArr, IWeatherObj} from "../../interfaces/weather";
 
 export interface IClimacellConfigParams {
     lat: string,
@@ -22,24 +22,35 @@ export class Climacell implements IClimacell {
         this.lon = lon
     }
 
+    serverQuery(): [Promise<any>, Promise<any>] {
+
+        const url: string = 'https://api.climacell.co/v3/weather/'
+
+        const dailyQuery: Promise<any> = fetch(`${url}forecast/daily?lat=${this.lat}&lon=${this.lon}`
+            + `&unit_system=si&fields=weather_code%2Ctemp&apikey=${this.apiKey}`
+            + `&start_time=now&end_time=${this.getNextDayDate(5)}`)
+
+        const nowQuery: Promise<any> = fetch(`${url}realtime?lat=${this.lat}&lon=${this.lon}&`
+            + `unit_system=si&fields=weather_code%2Chumidity%2Cwind_speed%2Ctemp&apikey=${this.apiKey}`)
+
+        return [nowQuery, dailyQuery]
+    }
+
     async getPrediction(): Promise<IWeatherObj | Error> {
 
+        const [responseNow, responseDaily] = this.serverQuery()
+
+        let responseObj: IWeatherObj = {
+            daily: Array(),
+            now: Object()
+        }
+
         try {
-            const responseDaily = await fetch(`https://api.climacell.co/v3/weather/forecast/daily?lat=${this.lat}&lon=${this.lon}`
-                + `&unit_system=si&fields=weather_code%2Chumidity%2Cwind_speed%2Ctemp&apikey=${this.apiKey}`
-                + `&start_time=now&end_time=${this.getNextDayDate(5)}`,
-                {
-                    "method": "GET",
-                    "headers": {}
-                }
-            )
-
-            const jsonDaily = await responseDaily.json()
-
-            return {
-                daily: jsonDaily
-            }
-        } catch (e) {
+            await responseNow.then(async (res) => responseObj.now = await res.json())
+            await responseDaily.then(async (res) => responseObj.daily = await res.json())
+            return responseObj
+        }
+         catch (e) {
             return new Promise(resolve => resolve(e))
         }
     }

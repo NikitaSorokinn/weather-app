@@ -1,11 +1,19 @@
 export interface IWeatherObj {
     daily: Array<IWeatherDailyArr>
+    now: IWeatherNow
 }
 
-interface IWeatherDailyArr {
+export interface IWeatherNow extends IWeatherDefaultValues {
+    temp: IValueObj
+    humidity: IValueObj
+    wind_speed: IValueObj
+}
+
+export interface IWeatherDailyArr extends IWeatherDefaultValues {
     temp: [IWeatherValueMin, IWeatherValueMax]
-    humidity: [IWeatherValueMin, IWeatherValueMax]
-    wind_speed: [IWeatherValueMin, IWeatherValueMax]
+}
+
+interface IWeatherDefaultValues {
     weather_code: {
         value: string
     }
