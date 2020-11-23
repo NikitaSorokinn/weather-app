@@ -1,4 +1,4 @@
-export function findIndexByCompare(array: Array<any>, comparing: (compareElem: any) => any): number | null{
+export function findIndexByCompare(array: Array<any>, comparing: (compareElem: any) => boolean): number | null{
     for (let i = 0; i < array.length; i++) {
         if (comparing(array[i])) return i
     }

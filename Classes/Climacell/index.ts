@@ -28,7 +28,7 @@ export class Climacell implements IClimacell {
 
         const dailyQuery: Promise<any> = fetch(`${url}forecast/daily?lat=${this.lat}&lon=${this.lon}`
             + `&unit_system=si&fields=weather_code%2Ctemp&apikey=${this.apiKey}`
-            + `&start_time=now&end_time=${this.getNextDayDate(5)}`)
+            + `&start_time=${this.getNextDayDate(1)}&end_time=${this.getNextDayDate(5)}`)
 
         const nowQuery: Promise<any> = fetch(`${url}realtime?lat=${this.lat}&lon=${this.lon}&`
             + `unit_system=si&fields=weather_code%2Chumidity%2Cwind_speed%2Ctemp&apikey=${this.apiKey}`)

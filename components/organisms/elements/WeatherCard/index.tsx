@@ -22,17 +22,19 @@ export const WeatherCard: React.FC = (): JSX.Element => {
     let jsx = <></>
 
     if (weatherObj !== null) {
-
+        console.log(weatherObj)
         jsx =
             <RoundAnimateFrame>
                 <div className={WeatherCardStyle.WeatherCard__div__top}>
                     <div className={WeatherCardStyle.WeatherCard__div__top__left}>
                         <CelsiusComponent value={weatherObj.now.temp.value}/>
-                        <WeatherNameComponent value={'CLOUDY'}/>
+                        <WeatherNameComponent
+                            value={weatherCodeToString(weatherObj.now.weather_code.value)}
+                        />
                         <div className={WeatherCardStyle.WeatherCard__div__top__left__additionalInfo}>
-                            <WeatherAdditionalInfo name={'HUMIDITY'} value={'65%'}/>
+                            <WeatherAdditionalInfo name={'HUMIDITY'} value={`${weatherObj.now.humidity.value.toString()}%`}/>
                             <div className={WeatherCardStyle.WeatherCard__div__top__left__additionalInfo__border}/>
-                            <WeatherAdditionalInfo name={'WIND'} value={'35%'}/>
+                            <WeatherAdditionalInfo name={'WIND'} value={`${weatherObj.now.wind_speed.value}m/s`}/>
                         </div>
                     </div>
                     <div className={WeatherCardStyle.WeatherCard__div__top__right}>
@@ -54,36 +56,21 @@ export const WeatherCard: React.FC = (): JSX.Element => {
                         <CityCard img={'/burj-khalifa.svg'} cityName={'Dubai'}/>
                     </div>
                     <div className={WeatherCardStyle.WeatherCard__div__bottom__half2}>
-                        <WeatherWeekday
-                            img={'/285ec93-cloudy.svg'}
-                            celsius={'12°'}
-                            weekday={'MON'}
-                            description={'Light freezing rain falling in fine pieces'}
-                        />
-                        <WeatherWeekday
-                            img={'/285ec93-cloudy.svg'}
-                            celsius={'12°'}
-                            weekday={'MON'}
-                            description={'Thunderstorm conditions'}
-                        />
-                        <WeatherWeekday
-                            img={'/285ec93-cloudy.svg'}
-                            celsius={'12°'}
-                            weekday={'MON'}
-                            description={'Light freezing rain falling in fine pieces'}
-                        />
-                        <WeatherWeekday
-                            img={'/285ec93-cloudy.svg'}
-                            celsius={'12°'}
-                            weekday={'MON'}
-                            description={'Light freezing rain falling in fine pieces'}
-                        />
-                        <WeatherWeekday
-                            img={'/285ec93-cloudy.svg'}
-                            celsius={'12°'}
-                            weekday={'MON'}
-                            description={'Light freezing rain falling in fine pieces'}
-                        />
+                        {
+                            weatherObj.daily.map((elem, i) => {
+                                return (
+                                    <WeatherWeekday
+                                        key={elem.observation_time.value}
+                                        img={`/${elem.weather_code.value}.svg`}
+                                        celsius={Math.round(
+                                                    (elem.temp[0].min.value + elem.temp[1].max.value)/2
+                                                ).toString()}
+                                        weekday={getDateDayName(i+1).toUpperCase()}
+                                        description={weatherCodeToString(elem.weather_code.value)}
+                                    />
+                                )
+                            })
+                        }
                     </div>
                 </div>
             </RoundAnimateFrame>
@@ -103,7 +90,9 @@ export const CelsiusComponent: React.FC<ICelsiusComponent> = ({value}): JSX.Elem
 
     return (
         <div className={CelsiusComponentStyle.CelsiusComponent__div}>
-            <p className={CelsiusComponentStyle.CelsiusComponent__div__p}>{`${temp}°`}</p>
+            <p className={CelsiusComponentStyle.CelsiusComponent__div__p}>
+                {`${temp}`}<span className={CelsiusComponentStyle.CelsiusComponent__div__p__span}>°</span>
+            </p>
         </div>
     )
 }
@@ -214,8 +203,20 @@ export const WeatherWeekday: React.FC<IWeatherWeekday> =
                 {weekday}
             </p>
             <img className={WeatherWeekdayStyle.WeatherWeekday__div__img} src={img} alt=" "/>
-            <p className={WeatherWeekdayStyle.WeatherWeekday__div__celsius}>{celsius}</p>
+            <p className={WeatherWeekdayStyle.WeatherWeekday__div__celsius}>{`${celsius}°`}</p>
             <p className={WeatherWeekdayStyle.WeatherWeekday__div__p}>{description}</p>
         </div>
     )
+}
+
+function weatherCodeToString(weatherCode: string) {
+    return weatherCode.replace("_", " ").toUpperCase()
+}
+
+function getDateDayName(plusDays: number): string {
+    const data = new Date()
+    const newDate = new Date(data.getFullYear(),data.getMonth(),data.getDate() + plusDays)
+    const locales: string = 'en-US'
+
+    return newDate.toLocaleString(locales, {weekday: 'short'})
 }

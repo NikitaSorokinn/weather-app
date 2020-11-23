@@ -29,7 +29,7 @@ interface IWeatherValueMin extends IWeatherValueObj {
 }
 
 interface IWeatherValueMax extends IWeatherValueObj {
-    min: IValueObj
+    max: IValueObj
 }
 
 interface IWeatherValueObj {

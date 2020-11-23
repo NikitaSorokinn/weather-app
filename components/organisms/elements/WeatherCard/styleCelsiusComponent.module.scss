@@ -12,6 +12,10 @@
     font-size: 6rem;
 }
 
+.CelsiusComponent__div__p__span {
+    position: absolute;
+}
+
 @media (max-width: $width--phone) {
     .CelsiusComponent__div__p {
         font-size: 3rem;

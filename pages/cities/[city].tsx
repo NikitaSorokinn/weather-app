@@ -99,7 +99,7 @@ Home.getInitialProps = async ({query, req}: IHomePageContext): Promise<IHomeWeat
 }
 
 function getCityIndex(cities: Array<ICities>, city: string): number|null {
-    return findIndexByCompare(cities, (compareElem: ICities) =>  compareElem.name === city)
+    return findIndexByCompare(cities, (compareElem: ICities) => compareElem.name === city)
 }
 
 async function getWeatherPrediction (cityIndex: number, cities: Array<ICities>, api: string): Promise<IWeatherObj|Error> {
