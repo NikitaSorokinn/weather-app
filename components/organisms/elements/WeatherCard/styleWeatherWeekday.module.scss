@@ -31,6 +31,10 @@
     height: 40%;
 }
 
+.WeatherWeekday__div__span {
+    position: absolute;
+}
+
 @media (max-width: $width--tablet) {
     .WeatherWeekday__div__p {
         font-size: 1rem;

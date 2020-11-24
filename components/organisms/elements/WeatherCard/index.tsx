@@ -5,7 +5,6 @@ import CelsiusComponentStyle from './styleCelsiusComponent.module.scss'
 import WeatherNameComponentStyle from './styleWeatherNameComponent.module.scss'
 import WeatherAdditionalInfoStyle from './styleWeatherAdditionalInfo.module.scss'
 import WeatherCloudsStyle from './styleWeatherClouds.module.scss'
-import ShowplaceStyle from './styleShowplace.module.scss'
 import PlaceNameStyle from './stylePlaceName.module.scss'
 import CityCardStyle from './styleCityCard.module.scss'
 import WeatherWeekdayStyle from './styleWeatherWeekday.module.scss'
@@ -22,7 +21,7 @@ export const WeatherCard: React.FC = (): JSX.Element => {
     let jsx = <></>
 
     if (weatherObj !== null) {
-        console.log(weatherObj)
+
         jsx =
             <RoundAnimateFrame>
                 <div className={WeatherCardStyle.WeatherCard__div__top}>
@@ -40,7 +39,6 @@ export const WeatherCard: React.FC = (): JSX.Element => {
                     <div className={WeatherCardStyle.WeatherCard__div__top__right}>
                         <div className={WeatherCardStyle.WeatherCard__div__top__right__stars}/>
                         <WeatherClouds/>
-                        <Showplace pictureSrc={'/big-ben-in-london.svg'}/>
                         <PlaceName placeName={'LONDON'}/>
                     </div>
                 </div>
@@ -137,21 +135,6 @@ export const WeatherClouds: React.FC = (): JSX.Element => {
     )
 }
 
-export interface IShowplace {
-    pictureSrc: string
-}
-export const Showplace: React.FC<IShowplace> = ({pictureSrc}): JSX.Element => {
-    return (
-        <div className={ShowplaceStyle.Showplace__div}>
-            <img
-                className={ShowplaceStyle.Showplace__div__img}
-                src={pictureSrc}
-                alt=" "
-            />
-        </div>
-    )
-}
-
 export interface IPlaceName {
     placeName: string
 }
@@ -159,7 +142,6 @@ export const PlaceName: React.FC<IPlaceName> = ({placeName}): JSX.Element => {
     return (
         <div className={PlaceNameStyle.PlaceName__div}>
             <p className={PlaceNameStyle.PlaceName__div__p}>{placeName}</p>
-            <div className={PlaceNameStyle.PlaceName__div__div}/>
         </div>
     )
 }
@@ -203,7 +185,9 @@ export const WeatherWeekday: React.FC<IWeatherWeekday> =
                 {weekday}
             </p>
             <img className={WeatherWeekdayStyle.WeatherWeekday__div__img} src={img} alt=" "/>
-            <p className={WeatherWeekdayStyle.WeatherWeekday__div__celsius}>{`${celsius}°`}</p>
+            <p className={WeatherWeekdayStyle.WeatherWeekday__div__celsius}>
+                {`${celsius}`}<span className={WeatherWeekdayStyle.WeatherWeekday__div__span}>°</span>
+            </p>
             <p className={WeatherWeekdayStyle.WeatherWeekday__div__p}>{description}</p>
         </div>
     )

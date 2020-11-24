@@ -1,30 +1,34 @@
 @import "styles/config";
 
+$formPadding: 8px;
+$border: 3px;
+$formPaddingHover: calc(#{$formPadding} - #{$border});
+
 @mixin setCityBorder($color) {
-    border: 3px solid $color;
+    border: $border solid $color;
 }
 
 .CityCard__div {
-    padding: 5px;
+    overflow: hidden;
+    padding: $formPadding;
     width: 100%;
     height: 30%;
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-bottom: 5px;
-    transition: all 100ms;
     background-color: white;
     user-select: none;
     border-radius: 10px;
     border-color: $color--3;
 
     &:hover {
+        padding: $formPaddingHover;
         @include setCityBorder($color--3);
-        transition: all 100ms;
         cursor: pointer;
     }
     &:active {
-        @include setCityBorder($color--5);
+        @include setCityBorder($color--4);
     }
     &:focus {
         outline: none;
@@ -32,7 +36,8 @@
 }
 
 .CityCard__div__activeCity {
-    @include setCityBorder($color--3)
+    @include setCityBorder($color--3);
+    padding: $formPaddingHover;
 }
 
 .CityCard__div__img {
