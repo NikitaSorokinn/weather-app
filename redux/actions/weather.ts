@@ -3,13 +3,14 @@ import {IWeatherReducerAction} from "../reducers/weather";
 import {IReducerAction} from "../../interfaces/redux";
 import {IWeatherObj} from "../../interfaces/weather";
 
-export function setWeather (weatherObj: IWeatherObj) {
+export function setWeather (weatherObj: IWeatherObj, city: String) {
     return (dispatch: (dispatchObj: IReducerAction<IWeatherReducerAction>) => void) => {
 
         const dispatchObj: IReducerAction<IWeatherReducerAction> = {
             type: SET_WEATHER,
             payload: {
-                weatherObj: weatherObj
+                weatherObj: weatherObj,
+                city: city
             }
         }
 

@@ -11,11 +11,14 @@ import WeatherWeekdayStyle from './styleWeatherWeekday.module.scss'
 import {RoundAnimateFrame} from "../../../atoms/Backgrounds/RoundAnimateFrame";
 import {useSelector} from "react-redux";
 import {IRootReducer} from "../../../../redux/rootReducer";
+import {cities, ICities} from "../../../../config/variables";
+import {useRouter} from "next/router";
 
 export const WeatherCard: React.FC = (): JSX.Element => {
 
-    const { weatherObj } = useSelector((state: IRootReducer) => ({
-        weatherObj: state.weather.weatherObj
+    const { weatherObj, city } = useSelector((state: IRootReducer) => ({
+        weatherObj: state.weather.weatherObj,
+        city: state.weather.city
     }))
 
     let jsx = <></>
@@ -39,19 +42,23 @@ export const WeatherCard: React.FC = (): JSX.Element => {
                     <div className={WeatherCardStyle.WeatherCard__div__top__right}>
                         <div className={WeatherCardStyle.WeatherCard__div__top__right__stars}/>
                         <WeatherClouds/>
-                        <PlaceName placeName={'LONDON'}/>
+                        <PlaceName placeName={city.toUpperCase()}/>
                     </div>
                 </div>
                 <div className={WeatherCardStyle.WeatherCard__div__bottom}>
                     <div className={WeatherCardStyle.WeatherCard__div__bottom__half1}>
-                        <CityCard
-                            img={'/big-ben.svg'}
-                            cityName={'London'}
-                            isActive={true}
-                        />
-                        <CityCard img={'/moscow.svg'} cityName={'Moscow'}/>
-                        <CityCard img={'/eiffel-tower.svg'} cityName={'Paris'}/>
-                        <CityCard img={'/burj-khalifa.svg'} cityName={'Dubai'}/>
+                        {
+                            cities.map(e => {
+
+                                return (
+                                    <CityCard
+                                        key={e.name + e.img}
+                                        cityObj={e}
+                                        isActive={city === e.name}
+                                    />
+                                )
+                            })
+                        }
                     </div>
                     <div className={WeatherCardStyle.WeatherCard__div__bottom__half2}>
                         {
@@ -147,11 +154,12 @@ export const PlaceName: React.FC<IPlaceName> = ({placeName}): JSX.Element => {
 }
 
 export interface ICityCard {
-    img: string
-    cityName: string
+    cityObj: ICities
     isActive?: boolean
 }
-export const CityCard: React.FC<ICityCard> = ({img, cityName, isActive = false}): JSX.Element => {
+export const CityCard: React.FC<ICityCard> = ({cityObj, isActive = false}): JSX.Element => {
+
+    const router = useRouter()
 
     const divStyle =
         isActive ?
@@ -160,9 +168,13 @@ export const CityCard: React.FC<ICityCard> = ({img, cityName, isActive = false})
             CityCardStyle.CityCard__div
 
     return (
-        <div className={divStyle}>
-            <img className={CityCardStyle.CityCard__div__img} src={img} alt=" "/>
-            <p className={CityCardStyle.CityCard__div__p}>{cityName}</p>
+        <div className={divStyle}
+            onClick={() => {
+                router.push(`${cityObj.name}`).then()
+            }}
+        >
+            <img className={CityCardStyle.CityCard__div__img} src={`/${cityObj.img}`} alt=" "/>
+            <p className={CityCardStyle.CityCard__div__p}>{cityObj.name}</p>
         </div>
     )
 }
