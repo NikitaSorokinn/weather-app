@@ -15,11 +15,11 @@ const Home = ({weatherObj}: IHomeWeatherPredictionObj): JSX.Element =>  {
 
     const router = useRouter()
     const dispatch = useDispatch()
+    const city = router.query.city
 
     useEffect( () => {
 
         let errno: string|null = null
-        const city = router.query.city
         const cityIndex: number|null = getCityIndex(cities, city as string)
 
         //client side
@@ -27,7 +27,7 @@ const Home = ({weatherObj}: IHomeWeatherPredictionObj): JSX.Element =>  {
 
             if (cityIndex !== null) {
                 getWeatherPrediction(cities[cityIndex], config.climacellApi).then(res => {
-                    if (res instanceof Error) errorHandler(res.name, dispatch, setWeatherStatus, setError)
+                    if (res instanceof Error) errorHandler(res.message, dispatch, setWeatherStatus, setError)
                     else dispatch(setWeather(res, cities[cityIndex].name))
                 })
             }
@@ -49,7 +49,7 @@ const Home = ({weatherObj}: IHomeWeatherPredictionObj): JSX.Element =>  {
 
     useEffect(() => {
         console.log(1)
-    })
+    }, [city])
 
     return <HomeTemplate/>
 }
@@ -93,7 +93,7 @@ Home.getInitialProps = async ({query, req}: IHomePageContext): Promise<IHomeWeat
     if (cityIndex !== null) {
         const response = await getWeatherPrediction(cities[cityIndex], config.climacellApi)
 
-        if (response instanceof Error) weatherObj.weatherObj.errno = response.name
+        if (response instanceof Error) weatherObj.weatherObj.errno = response.message
         else weatherObj.weatherObj = response
 
         return weatherObj
@@ -115,7 +115,9 @@ async function getWeatherPrediction (climacellConfigParams:IClimacellConfigParam
     let weatherObj: IWeatherObj | Error = new Error()
 
     const iClimacell = new Climacell(api, climacellConfigParams.lat, climacellConfigParams.lon)
-    await iClimacell.getPrediction().then(res => weatherObj = res)
+    await iClimacell.getPrediction().then(res => {
+        weatherObj = res
+    })
 
     return weatherObj
 }

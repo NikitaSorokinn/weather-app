@@ -1,4 +1,4 @@
-import {IWeatherDailyArr, IWeatherObj} from "../../interfaces/weather";
+import {IWeatherObj} from "../../interfaces/weather";
 
 export interface IClimacellConfigParams {
     lat: string,
@@ -22,7 +22,30 @@ export class Climacell implements IClimacell {
         this.lon = lon
     }
 
-    serverQuery(): [Promise<any>, Promise<any>] {
+    async getPrediction(): Promise<IWeatherObj | Error> {
+
+        const [responseNow, responseDaily] = this.serverQuery()
+
+        let responseObj: IWeatherObj = {
+            daily: Array(),
+            now: Object()
+        }
+
+        try {
+            await responseNow.then(async (res) => {
+                await this.queryHandler(res, responseObj, "now")
+            })
+            await responseDaily.then(async (res) => {
+                await this.queryHandler(res, responseObj, "daily")
+            })
+            return responseObj
+        }
+         catch (e) {
+            return new Promise(resolve => resolve(new Error(e)))
+        }
+    }
+
+    private serverQuery(): [Promise<any>, Promise<any>] {
 
         const url: string = 'https://api.climacell.co/v3/weather/'
 
@@ -36,26 +59,7 @@ export class Climacell implements IClimacell {
         return [nowQuery, dailyQuery]
     }
 
-    async getPrediction(): Promise<IWeatherObj | Error> {
-
-        const [responseNow, responseDaily] = this.serverQuery()
-
-        let responseObj: IWeatherObj = {
-            daily: Array(),
-            now: Object()
-        }
-
-        try {
-            await responseNow.then(async (res) => responseObj.now = await res.json())
-            await responseDaily.then(async (res) => responseObj.daily = await res.json())
-            return responseObj
-        }
-         catch (e) {
-            return new Promise(resolve => resolve(e))
-        }
-    }
-
-    getNextDayDate (plusDays: number): string {
+    private getNextDayDate (plusDays: number): string {
         const data = new Date()
         const newDate = new Date(data.getFullYear(),data.getMonth(),data.getDate() + plusDays)
         const locales: string = 'en-US'
@@ -64,6 +68,16 @@ export class Climacell implements IClimacell {
         const day: string = newDate.toLocaleString(locales, {day: 'numeric'})
         const month: string = newDate.toLocaleString(locales, {month: 'numeric'})
 
-        return `${year}-${month}-${day}T00:00:00Z`
+        const addLeadingZero = function (day: number): string {
+            return day > 10 ? day.toString() : '0' + day.toString()
+        }
+
+        return `${year}-${addLeadingZero(Number(month))}-${addLeadingZero(Number(day))}T00:00:00Z`
+    }
+
+    private async queryHandler(res: any, responseObj: any, responseObjParam: string) {
+        let json = await res.json()
+        if (json.errorCode === undefined) responseObj[responseObjParam] = json
+        else throw json.errorCode
     }
 }
