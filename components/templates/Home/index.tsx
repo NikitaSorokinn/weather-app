@@ -10,6 +10,7 @@ import {BouncingLoader} from "../../atoms/Loaders/BouncingLoader";
 import {ErrorBody} from "../../organisms/bodies/Error";
 import {useSelector} from "react-redux";
 import {IRootReducer} from "../../../redux/rootReducer";
+import {FullScreenOverlay} from "../../atoms/Backgrounds/FullScreenOverlay";
 
 interface IHomeTemplate {
     isSun?: boolean
@@ -39,12 +40,29 @@ const StatusComponent: React.FC = (): JSX.Element => {
         error: state.error.error
     }))
 
-    let jsx = <BouncingLoader/>
+    let jsx = <WeatherForecastBody/>
+    let jsx2 = <></>
 
-    if (status === statusValue.success) jsx = <WeatherForecastBody/>
-    else if (status === statusValue.error) jsx = <ErrorBody error={error}/>
+    if (status === statusValue.error) jsx = <ErrorBody error={error}/>
+    else if (status === statusValue.downloading) {
+        jsx2 =
+            <FullScreenOverlay
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}
+                height={'calc(100% - 50px)'}
+                backgroundColor={'rgba(119,136,153,0.3)'}
+            >
+                <BouncingLoader/>
+            </FullScreenOverlay>
+    }
 
     return (
-        jsx
+        <>
+            {jsx}
+            {jsx2}
+        </>
     )
 }

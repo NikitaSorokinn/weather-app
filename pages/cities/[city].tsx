@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {HomeTemplate} from "../../components/templates/Home";
 import {NextPageContext} from "next";
 import {findIndexByCompare} from "../../functions/common";
@@ -16,6 +16,7 @@ const Home = ({weatherObj}: IHomeWeatherPredictionObj): JSX.Element =>  {
     const router = useRouter()
     const dispatch = useDispatch()
     const city = router.query.city
+    const [isFirst, setIsFirst] = useState(true)
 
     useEffect( () => {
 
@@ -45,10 +46,21 @@ const Home = ({weatherObj}: IHomeWeatherPredictionObj): JSX.Element =>  {
         }
 
         if (errno !== null) errorHandler(errno, dispatch, setWeatherStatus, setError)
+        setIsFirst(false)
     },[])
 
     useEffect(() => {
-        console.log(1)
+        if (!isFirst) {
+            const cityIndex: number|null = getCityIndex(cities, city as string)
+
+            if (cityIndex !== null) {
+                dispatch(setWeatherStatus(status.downloading))
+                getWeatherPrediction(cities[cityIndex], config.climacellApi).then(res => {
+                    if (res instanceof Error) errorHandler(res.message, dispatch, setWeatherStatus, setError)
+                    else dispatch(setWeather(res, cities[cityIndex].name))
+                })
+            }
+        }
     }, [city])
 
     return <HomeTemplate/>

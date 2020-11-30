@@ -1,8 +1,10 @@
 @import "styles/config";
 
+$heightHeader: 50px;
+
 .DateHeader__header {
   z-index: 1;
-  height: 50px;
+  height: $heightHeader;
   background-color: $backgroundColor--3;
 }
 
