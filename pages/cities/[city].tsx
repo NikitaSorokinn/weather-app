@@ -2,14 +2,14 @@ import React, {useEffect, useState} from "react";
 import {HomeTemplate} from "../../components/templates/Home";
 import {NextPageContext} from "next";
 import {findIndexByCompare} from "../../functions/common";
-import {Climacell, IClimacellConfigParams} from "../../Classes/Climacell";
+import {IClimacellGetPredictionParams} from "../../Classes/Climacell";
 import {cities, ICities, status} from "../../config/variables";
 import {useRouter} from "next/router";
-import {config} from "../../config/config";
 import {useDispatch} from "react-redux";
 import {setWeather, setWeatherStatus} from "../../redux/actions/weather";
 import {setError} from "../../redux/actions/error";
 import {IWeatherObj} from "../../interfaces/weather";
+import {iClimacell, iLocalStorage} from "../../config/classes";
 
 const Home = ({weatherObj}: IHomeWeatherPredictionObj): JSX.Element =>  {
 
@@ -20,18 +20,15 @@ const Home = ({weatherObj}: IHomeWeatherPredictionObj): JSX.Element =>  {
 
     useEffect( () => {
 
+        iLocalStorage.clear()
+
         let errno: string|null = null
         const cityIndex: number|null = getCityIndex(cities, city as string)
 
         //client side
         if (weatherObj === null) {
 
-            if (cityIndex !== null) {
-                getWeatherPrediction(cities[cityIndex], config.climacellApi).then(res => {
-                    if (res instanceof Error) errorHandler(res.message, dispatch, setWeatherStatus, setError)
-                    else dispatch(setWeather(res, cities[cityIndex].name))
-                })
-            }
+            if (cityIndex !== null) setWeatherHandler(cityIndex, dispatch)
             //city wasn't found
             else errno = `${city} wasn't found`
         }
@@ -41,24 +38,25 @@ const Home = ({weatherObj}: IHomeWeatherPredictionObj): JSX.Element =>  {
             dispatch(setWeather(weatherObj, cities[cityIndex].name))
         }
         //error
-        else {
-            errno = weatherObj.errno
-        }
+        else errno = weatherObj.errno
 
         if (errno !== null) errorHandler(errno, dispatch, setWeatherStatus, setError)
         setIsFirst(false)
     },[])
 
+    //change city's weather
     useEffect(() => {
         if (!isFirst) {
             const cityIndex: number|null = getCityIndex(cities, city as string)
 
             if (cityIndex !== null) {
                 dispatch(setWeatherStatus(status.downloading))
-                getWeatherPrediction(cities[cityIndex], config.climacellApi).then(res => {
-                    if (res instanceof Error) errorHandler(res.message, dispatch, setWeatherStatus, setError)
-                    else dispatch(setWeather(res, cities[cityIndex].name))
-                })
+
+                const cityName: string = cities[cityIndex].name
+                const weatherFromStorage: string|null = iLocalStorage.get(cityName)
+
+                if (weatherFromStorage !== null) dispatch(setWeather(JSON.parse(weatherFromStorage), cityName))
+                else setWeatherHandler(cityIndex, dispatch)
             }
         }
     }, [city])
@@ -68,8 +66,18 @@ const Home = ({weatherObj}: IHomeWeatherPredictionObj): JSX.Element =>  {
 
 export default Home
 
+function setWeatherHandler(cityIndex: number, dispatch: (func: any) => void):void {
+    getWeatherPrediction(cities[cityIndex]).then(res => {
+        if (res instanceof Error) errorHandler(res.message, dispatch, setWeatherStatus, setError)
+        else {
+            iLocalStorage.set(cities[cityIndex].name, JSON.stringify(res))
+            dispatch(setWeather(res, cities[cityIndex].name))
+        }
+    })
+}
+
 function errorHandler(error: string, dispatch: (reduxAction1: void)=>void,
-            setStatusAction: (status: String) => void, setErrorAction: (error: string) => void) {
+            setStatusAction: (status: String) => void, setErrorAction: (error: string) => void): void {
     dispatch(setErrorAction(error))
     dispatch(setStatusAction(status.error))
 }
@@ -103,7 +111,7 @@ Home.getInitialProps = async ({query, req}: IHomePageContext): Promise<IHomeWeat
     const cityIndex: number|null = getCityIndex(cities, city)
 
     if (cityIndex !== null) {
-        const response = await getWeatherPrediction(cities[cityIndex], config.climacellApi)
+        const response = await getWeatherPrediction(cities[cityIndex])
 
         if (response instanceof Error) weatherObj.weatherObj.errno = response.message
         else weatherObj.weatherObj = response
@@ -122,14 +130,12 @@ function getCityIndex(cities: Array<ICities>, city: string): number|null {
         (compareElem: ICities) => compareElem.name.toLowerCase() === city.toLowerCase())
 }
 
-async function getWeatherPrediction (climacellConfigParams:IClimacellConfigParams, api: string): Promise<IWeatherObj|Error> {
+async function getWeatherPrediction (climacellConfigParams:IClimacellGetPredictionParams): Promise<IWeatherObj|Error> {
 
     let weatherObj: IWeatherObj | Error = new Error()
+    const {lat, lon}: IClimacellGetPredictionParams = climacellConfigParams
 
-    const iClimacell = new Climacell(api, climacellConfigParams.lat, climacellConfigParams.lon)
-    await iClimacell.getPrediction().then(res => {
-        weatherObj = res
-    })
+    await iClimacell.getPrediction({lat, lon}).then(res => weatherObj = res)
 
     return weatherObj
 }

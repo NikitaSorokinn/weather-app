@@ -1,10 +1,10 @@
-import {IClimacellConfigParams} from "../Classes/Climacell";
+import {IClimacellGetPredictionParams} from "../Classes/Climacell";
 
 export const globalVar = {
     url: 'https://weatherapp.nikitasorokin.ru'
 }
 
-export interface ICities extends IClimacellConfigParams{
+export interface ICities extends IClimacellGetPredictionParams{
     name: string,
     img: string
 }

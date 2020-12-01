@@ -1,30 +1,23 @@
 import {IWeatherObj} from "../../interfaces/weather";
+import {config} from "../../config/config";
 
-export interface IClimacellConfigParams {
+export interface IClimacellGetPredictionParams {
     lat: string,
     lon: string
 }
 
-export interface IClimacell extends IClimacellConfigParams {
+export interface IClimacell {
     apiKey: string,
 
-    getPrediction(): Promise<IWeatherObj | Error>
+    getPrediction(obj: IClimacellGetPredictionParams): Promise<IWeatherObj | Error>
 }
 
 export class Climacell implements IClimacell {
-    apiKey: string;
-    lat: string;
-    lon: string;
+    apiKey: string = config.climacellApi;
 
-    constructor(apiKey: string, lat: string, lon: string) {
-        this.apiKey = apiKey
-        this.lat = lat
-        this.lon = lon
-    }
+    async getPrediction({lat, lon}: IClimacellGetPredictionParams): Promise<IWeatherObj | Error> {
 
-    async getPrediction(): Promise<IWeatherObj | Error> {
-
-        const [responseNow, responseDaily] = this.serverQuery()
+        const [responseNow, responseDaily] = this.serverQuery({lon, lat})
 
         let responseObj: IWeatherObj = {
             daily: Array(),
@@ -45,15 +38,15 @@ export class Climacell implements IClimacell {
         }
     }
 
-    private serverQuery(): [Promise<any>, Promise<any>] {
+    private serverQuery({lat, lon}: IClimacellGetPredictionParams): [Promise<any>, Promise<any>] {
 
         const url: string = 'https://api.climacell.co/v3/weather/'
 
-        const dailyQuery: Promise<any> = fetch(`${url}forecast/daily?lat=${this.lat}&lon=${this.lon}`
+        const dailyQuery: Promise<any> = fetch(`${url}forecast/daily?lat=${lat}&lon=${lon}`
             + `&unit_system=si&fields=weather_code%2Ctemp&apikey=${this.apiKey}`
             + `&start_time=${this.getNextDayDate(1)}&end_time=${this.getNextDayDate(5)}`)
 
-        const nowQuery: Promise<any> = fetch(`${url}realtime?lat=${this.lat}&lon=${this.lon}&`
+        const nowQuery: Promise<any> = fetch(`${url}realtime?lat=${lat}&lon=${lon}&`
             + `unit_system=si&fields=weather_code%2Chumidity%2Cwind_speed%2Ctemp&apikey=${this.apiKey}`)
 
         return [nowQuery, dailyQuery]
