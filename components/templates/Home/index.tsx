@@ -11,6 +11,7 @@ import {ErrorBody} from "../../organisms/bodies/Error";
 import {useSelector} from "react-redux";
 import {IRootReducer} from "../../../redux/rootReducer";
 import {FullScreenOverlay} from "../../atoms/Backgrounds/FullScreenOverlay";
+import {InfoFooter} from "../../organisms/footers/InfoFooter";
 
 interface IHomeTemplate {
     isSun?: boolean
@@ -23,13 +24,16 @@ export const HomeTemplate: React.FC<IHomeTemplate> = ({isSun = true,
     const jsxBody = isEmpty? <></> : <StatusComponent/>
 
     return (
-        <div className={classes.HomeTemplate__div}>
-            <DateHeader/>
-            {jsxSun}
-            <FullHeightGradientBackground>
-                {jsxBody}
-            </FullHeightGradientBackground>
-        </div>
+        <>
+            <div className={classes.HomeTemplate__div}>
+                <DateHeader/>
+                {jsxSun}
+                <FullHeightGradientBackground>
+                    {jsxBody}
+                </FullHeightGradientBackground>
+            </div>
+            <InfoFooter/>
+        </>
     )
 }
 

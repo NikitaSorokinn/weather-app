@@ -1,0 +1,17 @@
+@import "styles/config";
+
+.InfoFooter__div {
+    display: flex;
+    padding: 20px 40px;
+    background-color: $backgroundColor--3;
+    justify-content: flex-end;
+}
+
+.InfoFooter__svg {
+    margin-left: 10px;
+    color: $colorFont--1;
+
+    &:hover {
+        color: $color--5;
+    }
+}
