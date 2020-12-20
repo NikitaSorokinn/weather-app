@@ -1,41 +1,55 @@
 import React from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faGithub, IconDefinition} from "@fortawesome/free-brands-svg-icons";
-import {faUserCircle} from "@fortawesome/free-solid-svg-icons";
 
 import classes from './style.module.scss'
-
-interface aList {
-    icon: IconDefinition,
-    href: string
-}
+import {attributions, socialNetworks} from "../../../../config/variables";
 
 export const InfoFooter: React.FC = (): JSX.Element => {
 
-    const array: Array<aList> = [
-        { icon : faGithub, href: 'https://github.com/NikitaSorokinn'},
-        { icon: faUserCircle, href: ''}
-    ]
+    const attributionsLength: number = attributions.length - 1
 
     return (
         <div className={classes.InfoFooter__div}>
-            {
-                array.map((v, i) => {
-                    return (
-                        <a
-                            key={i}
-                            className={classes.InfoFooter__svg}
-                            href={v.href}
-                            target={'_blank'}
-                        >
-                            <FontAwesomeIcon
-                                icon={v.icon}
-                                size={'lg'}
-                            />
-                        </a>
-                    )
-                })
-            }
+            <div className={classes.InfoFooter__attribution__div}>
+                <div>
+                    Icons made by
+                    {' '}
+                    {
+                        attributions.map((v, i) => {
+
+                            const author: string = v.author
+
+                            return (
+                                <span key={i}>
+                                    <a href={`https://www.flaticon.com/authors/${author}`} title={author}>{author}</a>
+                                    {i === attributionsLength ? "" : ", "}
+                                </span>
+                            )
+                        })
+                    }
+                    {' '}
+                    from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+                </div>
+            </div>
+            <div>
+                {
+                    socialNetworks.map((v, i) => {
+                        return (
+                            <a
+                                key={i}
+                                className={classes.InfoFooter__svg}
+                                href={v.href}
+                                target={'_blank'}
+                            >
+                                <FontAwesomeIcon
+                                    icon={v.icon}
+                                    size={'lg'}
+                                />
+                            </a>
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }

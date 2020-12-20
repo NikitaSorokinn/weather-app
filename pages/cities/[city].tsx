@@ -34,8 +34,11 @@ const Home = ({weatherObj}: IHomeWeatherPredictionObj): JSX.Element =>  {
         }
         //server side rendering
         else if (!("errno" in weatherObj)) {
-            // @ts-ignore
-            dispatch(setWeather(weatherObj, cities[cityIndex].name))
+            if (cityIndex !== null) {
+                dispatch(setWeather(weatherObj, cities[cityIndex].name))
+                iLocalStorage.set(cities[cityIndex].name, JSON.stringify(weatherObj))
+            }
+            else errno = `${city} wasn't found`
         }
         //error
         else errno = weatherObj.errno

@@ -1,4 +1,6 @@
 import {IClimacellGetPredictionParams} from "../Classes/Climacell";
+import {faGithub, IconDefinition} from "@fortawesome/free-brands-svg-icons";
+import {faUserCircle} from "@fortawesome/free-solid-svg-icons";
 
 export const globalVar = {
     url: 'https://weatherapp.nikitasorokin.ru'
@@ -45,3 +47,23 @@ export const status: IStatus = {
     success: 'success',
     error: 'error'
 }
+
+export interface ISocialNetworks {
+    icon: IconDefinition,
+    href: string
+}
+
+export const socialNetworks: Array<ISocialNetworks> = [
+    { icon : faGithub, href: 'https://github.com/NikitaSorokinn'},
+    { icon: faUserCircle, href: ''}
+]
+
+export interface IAttributions {
+    author: string
+}
+export const attributions: Array<IAttributions> = [
+    {author: 'ultimatearm'},
+    {author: 'mynamepong'},
+    {author: 'Roundicons'},
+    {author: 'Freepik'}
+]
