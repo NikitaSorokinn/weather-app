@@ -1,4 +1,6 @@
 import React from 'react'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBars} from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./style.module.scss"
 
@@ -9,6 +11,11 @@ export const DateHeader: React.FC = (): JSX.Element => {
     return (
         <header className={classes.DateHeader__header}>
             <div className={classes.DateHeader__header__div}>
+                <FontAwesomeIcon
+                    className={classes.DateHeader__barIcon}
+                    icon={faBars}
+                    size={'lg'}
+                />
                 <p className={classes.DateHeader__header__div__p}>{currentDate}</p>
             </div>
         </header>

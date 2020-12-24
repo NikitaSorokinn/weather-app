@@ -34,7 +34,7 @@ export const WeatherCard: React.FC = (): JSX.Element => {
                             value={weatherCodeToString(weatherObj.now.weather_code.value)}
                         />
                         <div className={WeatherCardStyle.WeatherCard__div__top__left__additionalInfo}>
-                            <WeatherAdditionalInfo name={'HUMIDITY'} value={`${weatherObj.now.humidity.value.toString()}%`}/>
+                            <WeatherAdditionalInfo name={'HUMIDITY'} value={`${weatherObj.now.humidity.value}%`}/>
                             <div className={WeatherCardStyle.WeatherCard__div__top__left__additionalInfo__border}/>
                             <WeatherAdditionalInfo name={'WIND'} value={`${weatherObj.now.wind_speed.value}m/s`}/>
                         </div>
@@ -206,7 +206,8 @@ export const WeatherWeekday: React.FC<IWeatherWeekday> =
 }
 
 function weatherCodeToString(weatherCode: string) {
-    return weatherCode.replace("_", " ").toUpperCase()
+    if (weatherCode !== null) return weatherCode.replace("_", " ").toUpperCase()
+    return ''
 }
 
 function getDateDayName(plusDays: number): string {

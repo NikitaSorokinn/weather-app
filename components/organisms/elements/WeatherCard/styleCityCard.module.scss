@@ -28,7 +28,7 @@ $formPaddingHover: calc(#{$formPadding} - #{$border});
         cursor: pointer;
     }
     &:active {
-        @include setCityBorder($color--4);
+        @include setCityBorder($color--6);
     }
     &:focus {
         outline: none;
