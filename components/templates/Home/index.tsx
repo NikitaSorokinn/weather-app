@@ -56,7 +56,6 @@ const StatusComponent: React.FC = (): JSX.Element => {
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}
-                height={'calc(100% - 50px)'}
                 backgroundColor={'rgba(119,136,153,0.3)'}
             >
                 <BouncingLoader/>

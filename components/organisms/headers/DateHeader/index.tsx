@@ -1,21 +1,29 @@
 import React from 'react'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars} from "@fortawesome/free-solid-svg-icons";
+import {useDispatch} from "react-redux";
+import {setShow} from "../../../../redux/actions/menu";
 
 import classes from "./style.module.scss"
 
 export const DateHeader: React.FC = (): JSX.Element => {
 
     const currentDate: string = getCurrentDateString()
+    const dispatch = useDispatch()
 
     return (
         <header className={classes.DateHeader__header}>
             <div className={classes.DateHeader__header__div}>
-                <FontAwesomeIcon
-                    className={classes.DateHeader__barIcon}
-                    icon={faBars}
-                    size={'lg'}
-                />
+                <button
+                    className={classes.DateHeader__menuButton}
+                >
+                    <FontAwesomeIcon
+                        onClick={() => dispatch(setShow(true))}
+                        className={classes.DateHeader__barIcon}
+                        icon={faBars}
+                        size={'lg'}
+                    />
+                </button>
                 <p className={classes.DateHeader__header__div__p}>{currentDate}</p>
             </div>
         </header>

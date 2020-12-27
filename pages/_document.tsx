@@ -14,8 +14,8 @@ export default class MyDocument extends Document {
                     <MainPageHeadTags/>
                 </Head>
                 <body>
-                    <Main />
-                    <NextScript />
+                    <Main/>
+                    <NextScript/>
                 </body>
             </Html>
         )

@@ -82,7 +82,7 @@ export const WeatherCard: React.FC = (): JSX.Element => {
     }
 
     return (
-        jsx
+       jsx
     )
 }
 
@@ -156,8 +156,11 @@ export const PlaceName: React.FC<IPlaceName> = ({placeName}): JSX.Element => {
 export interface ICityCard {
     cityObj: ICities
     isActive?: boolean
+    action?(): any
 }
-export const CityCard: React.FC<ICityCard> = ({cityObj, isActive = false}): JSX.Element => {
+
+export const CityCard: React.FC<ICityCard> = ({cityObj, isActive = false,
+    action = () => null}): JSX.Element => {
 
     const router = useRouter()
 
@@ -171,6 +174,7 @@ export const CityCard: React.FC<ICityCard> = ({cityObj, isActive = false}): JSX.
         <div className={divStyle}
             onClick={() => {
                 router.push(`${cityObj.name}`).then()
+                action()
             }}
         >
             <img className={CityCardStyle.CityCard__div__img} src={`/${cityObj.img}`} alt=" "/>
@@ -196,7 +200,11 @@ export const WeatherWeekday: React.FC<IWeatherWeekday> =
             >
                 {weekday}
             </p>
-            <img className={WeatherWeekdayStyle.WeatherWeekday__div__img} src={img} alt=" "/>
+            <img
+                className={WeatherWeekdayStyle.WeatherWeekday__div__img}
+                src={img}
+                alt="error image"
+            />
             <p className={WeatherWeekdayStyle.WeatherWeekday__div__celsius}>
                 {`${celsius}`}<span className={WeatherWeekdayStyle.WeatherWeekday__div__span}>°</span>
             </p>

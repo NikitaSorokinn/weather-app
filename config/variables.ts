@@ -54,7 +54,7 @@ export interface ISocialNetworks {
 }
 
 export const socialNetworks: Array<ISocialNetworks> = [
-    { icon : faGithub, href: 'https://github.com/NikitaSorokinn'},
+    { icon : faGithub, href: 'https://github.com/oonixen'},
     { icon: faUserCircle, href: ''}
 ]
 

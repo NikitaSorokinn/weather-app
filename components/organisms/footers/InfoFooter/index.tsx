@@ -30,6 +30,9 @@ export const InfoFooter: React.FC = (): JSX.Element => {
                     {' '}
                     from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
                 </div>
+                <div>
+                    <span>Powered by <a href={'https://www.climacell.co/'}>ClimaCell</a></span>
+                </div>
             </div>
             <div>
                 {

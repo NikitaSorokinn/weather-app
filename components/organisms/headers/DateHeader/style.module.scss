@@ -16,16 +16,19 @@ $heightHeader: 50px;
   position: relative;
 }
 
-.DateHeader__barIcon {
+.DateHeader__menuButton {
   display: none;
   position: absolute;
   left: 10px;
-  color: $colorFont--1;
 
   &:hover {
     cursor: pointer;
     transform: scale(1.1);
   }
+}
+
+.DateHeader__barIcon {
+  color: $colorFont--1;
 }
 
 .DateHeader__header__div__p {
@@ -40,7 +43,7 @@ $heightHeader: 50px;
 }
 
 @media (max-width: $width--tablet) {
-  .DateHeader__barIcon {
+  .DateHeader__menuButton {
     display: block;
   }
 }
