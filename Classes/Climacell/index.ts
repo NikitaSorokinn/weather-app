@@ -62,7 +62,7 @@ export class Climacell implements IClimacell {
         const month: string = newDate.toLocaleString(locales, {month: 'numeric'})
 
         const addLeadingZero = function (day: number): string {
-            return day > 10 ? day.toString() : '0' + day.toString()
+            return day >= 10 ? day.toString() : '0' + day.toString()
         }
 
         return `${year}-${addLeadingZero(Number(month))}-${addLeadingZero(Number(day))}T00:00:00Z`
