@@ -1,23 +1,22 @@
-import React from 'react'
-
-import {DateHeader} from "../../organisms/headers/DateHeader";
-import {WeatherForecastBody} from "../../organisms/bodies/WeatherForecast";
-import classes from "./style.module.scss";
-import {status as statusValue} from "../../../config/variables";
-import {FullHeightGradientBackground} from "../../atoms/Backgrounds/FullHeightGradient";
-import {SunSvg} from "../../atoms/Svg/Sun/index.jsx";
-import {BouncingLoader} from "../../atoms/Loaders/BouncingLoader";
-import {ErrorBody} from "../../organisms/bodies/Error";
+import React from "react";
+import {SunSvg} from "../../../components/atoms/Svg/Sun/index.jsx";
+import {DateHeader} from "../../../components/organisms/headers/DateHeader";
+import {FullHeightGradientBackground} from "../../../components/atoms/Backgrounds/FullHeightGradient";
+import {InfoFooter} from "../../../components/organisms/footers/InfoFooter";
 import {useSelector} from "react-redux";
 import {IRootReducer} from "../../../redux/rootReducer";
-import {FullScreenOverlay} from "../../atoms/Backgrounds/FullScreenOverlay";
-import {InfoFooter} from "../../organisms/footers/InfoFooter";
+import {WeatherForecastBody} from "../WeatherForecast";
+import {status as statusValue} from "../../../config/variables";
+import {ErrorBody} from "../../../components/organisms/bodies/Error";
+import {FullScreenOverlay} from "../../../components/atoms/Backgrounds/FullScreenOverlay";
+import {BouncingLoader} from "../../../components/atoms/Loaders/BouncingLoader";
+import classes from './style.module.scss'
 
-interface IHomeTemplate {
+interface IMainCity {
     isSun?: boolean
     isEmpty?: boolean
 }
-export const HomeTemplate: React.FC<IHomeTemplate> = ({isSun = true,
+export const MainCityModule: React.FC<IMainCity> = ({isSun = true,
     isEmpty = false}): JSX.Element => {
 
     const jsxSun = isSun ? <SunSvg/> : <></>
@@ -25,7 +24,7 @@ export const HomeTemplate: React.FC<IHomeTemplate> = ({isSun = true,
 
     return (
         <>
-            <div className={classes.HomeTemplate__div}>
+            <div className={classes.MainCity__div}>
                 <DateHeader/>
                 {jsxSun}
                 <FullHeightGradientBackground>

@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {HomeTemplate} from "../../components/templates/Home";
 import {NextPageContext} from "next";
 import {findIndexByCompare} from "../../functions/common";
 import {IClimacellGetPredictionParams} from "../../Classes/Climacell";
@@ -10,6 +9,7 @@ import {setWeather, setWeatherStatus} from "../../redux/actions/weather";
 import {setError} from "../../redux/actions/error";
 import {IWeatherObj} from "../../interfaces/weather";
 import {iClimacell, iLocalStorage} from "../../config/classes";
+import {MainCityModule} from "../../modules/City/Main";
 
 const Home = ({weatherObj}: IHomeWeatherPredictionObj): JSX.Element =>  {
 
@@ -64,7 +64,7 @@ const Home = ({weatherObj}: IHomeWeatherPredictionObj): JSX.Element =>  {
         }
     }, [city])
 
-    return <HomeTemplate/>
+    return <MainCityModule/>
 }
 
 export default Home

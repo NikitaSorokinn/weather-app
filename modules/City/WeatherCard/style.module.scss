@@ -1,4 +1,4 @@
-@import "styles/config";
+@import "../../../styles/config";
 
 @mixin weatherCardHalf() {
     height: 50%;
@@ -54,7 +54,7 @@
     width:45%;
     height:100%;
     display:block;
-    background:url(../../../../public/stars.png) repeat bottom center;
+    background:url(../../../public/stars.png) repeat bottom center;
     z-index:0;
 }
 

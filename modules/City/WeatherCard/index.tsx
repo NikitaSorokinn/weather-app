@@ -8,10 +8,10 @@ import WeatherCloudsStyle from './styleWeatherClouds.module.scss'
 import PlaceNameStyle from './stylePlaceName.module.scss'
 import CityCardStyle from './styleCityCard.module.scss'
 import WeatherWeekdayStyle from './styleWeatherWeekday.module.scss'
-import {RoundAnimateFrame} from "../../../atoms/Backgrounds/RoundAnimateFrame";
+import {RoundAnimateFrame} from "../../../components/atoms/Backgrounds/RoundAnimateFrame";
 import {useSelector} from "react-redux";
-import {IRootReducer} from "../../../../redux/rootReducer";
-import {cities, ICities} from "../../../../config/variables";
+import {IRootReducer} from "../../../redux/rootReducer";
+import {cities, ICities} from "../../../config/variables";
 import {useRouter} from "next/router";
 
 export const WeatherCard: React.FC = (): JSX.Element => {

@@ -9,7 +9,7 @@ export const InfoFooter: React.FC = (): JSX.Element => {
     const attributionsLength: number = attributions.length - 1
 
     return (
-        <div className={classes.InfoFooter__div}>
+        <footer className={classes.InfoFooter__div}>
             <div className={classes.InfoFooter__attribution__div}>
                 <div>
                     Icons made by
@@ -53,6 +53,6 @@ export const InfoFooter: React.FC = (): JSX.Element => {
                     })
                 }
             </div>
-        </div>
+        </footer>
     )
 }

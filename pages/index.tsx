@@ -3,7 +3,7 @@ import {useRouter} from "next/router";
 import {cities} from "../config/variables";
 import {HomeTemplate} from "../components/templates/Home";
 
-const IndexPage: React.FC = (): JSX.Element => {
+const IndexPage: React.FC = (): JSX.Element|null => {
 
   const router = useRouter()
 
@@ -11,9 +11,7 @@ const IndexPage: React.FC = (): JSX.Element => {
       router.push(`cities/${cities[0].name}`).then()
   },[])
 
-  return (
-      <HomeTemplate isSun={false} isEmpty={true}/>
-  )
+  return null
 }
 
 export default IndexPage

@@ -1,14 +1,14 @@
 import React from "react";
-import {CityCard, WeatherCard} from "../../elements/WeatherCard";
-import {cities} from "../../../../config/variables";
+import {CityCard, WeatherCard} from "../WeatherCard";
+import {cities} from "../../../config/variables";
 
 import styles from './style.module.scss'
 import {useSelector} from "react-redux";
-import {IRootReducer} from "../../../../redux/rootReducer";
+import {IRootReducer} from "../../../redux/rootReducer";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTimes} from "@fortawesome/free-solid-svg-icons";
 import {useDispatch} from "react-redux";
-import {setShow} from "../../../../redux/actions/menu";
+import {setShow} from "../../../redux/actions/menu";
 import {Dispatch} from "redux";
 
 export const WeatherForecastBody: React.FC = (): JSX.Element => {
@@ -37,7 +37,7 @@ const ChooseCityMenu: React.FC<IChooseCityMenu> = ({dispatch}): JSX.Element => {
     const display = show ? 'contents' : 'none'
 
     return (
-        <div
+        <section
             style={{display: display}}
         >
             <div className={styles.ChooseCityMenu__circle}/>
@@ -52,7 +52,7 @@ const ChooseCityMenu: React.FC<IChooseCityMenu> = ({dispatch}): JSX.Element => {
                 />
             </button>
             <Menu action={hideMenu}/>
-        </div>
+        </section>
     )
 }
 
