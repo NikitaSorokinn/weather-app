@@ -5,7 +5,7 @@ import {FullHeightGradientBackground} from "../../../components/atoms/Background
 import {InfoFooter} from "../../../components/organisms/footers/InfoFooter";
 import {useSelector} from "react-redux";
 import {IRootReducer} from "../../../redux/rootReducer";
-import {WeatherForecastBody} from "../WeatherForecast";
+import {WeatherForecastBodyCity} from "../WeatherForecast";
 import {status as statusValue} from "../../../config/variables";
 import {ErrorBody} from "../../../components/organisms/bodies/Error";
 import {FullScreenOverlay} from "../../../components/atoms/Backgrounds/FullScreenOverlay";
@@ -43,7 +43,7 @@ const StatusComponent: React.FC = (): JSX.Element => {
         error: state.error.error
     }))
 
-    let jsx = <WeatherForecastBody/>
+    let jsx = <WeatherForecastBodyCity/>
     let jsx2 = <></>
 
     if (status === statusValue.error) jsx = <ErrorBody error={error}/>

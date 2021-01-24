@@ -1,7 +1,7 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
-import {MainPageHeadTags} from "../components/atoms/HeadTags/MainPageHeadTags";
+import {MainPageHeadTags} from "../components/organisms/HeadTags/MainPageHeadTags";
 
 export default class MyDocument extends Document {
 

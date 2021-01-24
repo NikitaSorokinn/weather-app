@@ -14,7 +14,7 @@ import {IRootReducer} from "../../../redux/rootReducer";
 import {cities, ICities} from "../../../config/variables";
 import {useRouter} from "next/router";
 
-export const WeatherCard: React.FC = (): JSX.Element => {
+export const WeatherCardCity: React.FC = (): JSX.Element => {
 
     const { weatherObj, city } = useSelector((state: IRootReducer) => ({
         weatherObj: state.weather.weatherObj,
@@ -51,7 +51,7 @@ export const WeatherCard: React.FC = (): JSX.Element => {
                             cities.map(e => {
 
                                 return (
-                                    <CityCard
+                                    <CityCardCity
                                         key={e.name + e.img}
                                         cityObj={e}
                                         isActive={city === e.name}
@@ -86,10 +86,10 @@ export const WeatherCard: React.FC = (): JSX.Element => {
     )
 }
 
-export interface ICelsiusComponent {
+interface ICelsiusComponent {
     value: number
 }
-export const CelsiusComponent: React.FC<ICelsiusComponent> = ({value}): JSX.Element => {
+const CelsiusComponent: React.FC<ICelsiusComponent> = ({value}): JSX.Element => {
 
     const temp = Math.round(value).toString()
 
@@ -102,10 +102,10 @@ export const CelsiusComponent: React.FC<ICelsiusComponent> = ({value}): JSX.Elem
     )
 }
 
-export interface IWeatherNameComponent {
+interface IWeatherNameComponent {
     value: string
 }
-export const WeatherNameComponent: React.FC<IWeatherNameComponent> = ({value}): JSX.Element => {
+const WeatherNameComponent: React.FC<IWeatherNameComponent> = ({value}): JSX.Element => {
     return (
         <div className={WeatherNameComponentStyle.WeatherNameComponent__div}>
             <p className={WeatherNameComponentStyle.WeatherNameComponent__div__p}>{value}</p>
@@ -113,11 +113,11 @@ export const WeatherNameComponent: React.FC<IWeatherNameComponent> = ({value}): 
     )
 }
 
-export interface IWeatherAdditionalInfo {
+interface IWeatherAdditionalInfo {
     name: string
     value: string
 }
-export const WeatherAdditionalInfo: React.FC<IWeatherAdditionalInfo> = ({name, value}): JSX.Element => {
+const WeatherAdditionalInfo: React.FC<IWeatherAdditionalInfo> = ({name, value}): JSX.Element => {
     return (
         <div className={WeatherAdditionalInfoStyle.WeatherAdditionalInfo__div}>
             <p className={WeatherAdditionalInfoStyle.WeatherAdditionalInfo__div__p}>{name}</p>
@@ -126,7 +126,7 @@ export const WeatherAdditionalInfo: React.FC<IWeatherAdditionalInfo> = ({name, v
     )
 }
 
-export const WeatherClouds: React.FC = (): JSX.Element => {
+const WeatherClouds: React.FC = (): JSX.Element => {
 
     const cloudImg: string = '/cloud-computing.svg'
 
@@ -142,10 +142,10 @@ export const WeatherClouds: React.FC = (): JSX.Element => {
     )
 }
 
-export interface IPlaceName {
+interface IPlaceName {
     placeName: string
 }
-export const PlaceName: React.FC<IPlaceName> = ({placeName}): JSX.Element => {
+const PlaceName: React.FC<IPlaceName> = ({placeName}): JSX.Element => {
     return (
         <div className={PlaceNameStyle.PlaceName__div}>
             <p className={PlaceNameStyle.PlaceName__div__p}>{placeName}</p>
@@ -153,13 +153,13 @@ export const PlaceName: React.FC<IPlaceName> = ({placeName}): JSX.Element => {
     )
 }
 
-export interface ICityCard {
+interface ICityCard {
     cityObj: ICities
     isActive?: boolean
     action?(): any
 }
 
-export const CityCard: React.FC<ICityCard> = ({cityObj, isActive = false,
+export const CityCardCity: React.FC<ICityCard> = ({cityObj, isActive = false,
     action = () => null}): JSX.Element => {
 
     const router = useRouter()
@@ -183,13 +183,13 @@ export const CityCard: React.FC<ICityCard> = ({cityObj, isActive = false,
     )
 }
 
-export interface IWeatherWeekday {
+interface IWeatherWeekday {
     weekday: string
     img: string
     celsius: string
     description: string
 }
-export const WeatherWeekday: React.FC<IWeatherWeekday> =
+const WeatherWeekday: React.FC<IWeatherWeekday> =
     ({weekday, img, celsius, description}): JSX.Element => {
 
     return (

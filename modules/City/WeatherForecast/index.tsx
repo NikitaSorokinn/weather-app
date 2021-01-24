@@ -1,5 +1,5 @@
 import React from "react";
-import {CityCard, WeatherCard} from "../WeatherCard";
+import {CityCardCity, WeatherCardCity} from "../WeatherCard";
 import {cities} from "../../../config/variables";
 
 import styles from './style.module.scss'
@@ -11,13 +11,13 @@ import {useDispatch} from "react-redux";
 import {setShow} from "../../../redux/actions/menu";
 import {Dispatch} from "redux";
 
-export const WeatherForecastBody: React.FC = (): JSX.Element => {
+export const WeatherForecastBodyCity: React.FC = (): JSX.Element => {
 
     const dispatch = useDispatch()
 
     return (
         <>
-            <WeatherCard/>
+            <WeatherCardCity/>
             <ChooseCityMenu
                 dispatch={dispatch}
             />
@@ -71,7 +71,7 @@ const Menu: React.FC<IMenu> = ({action = () => null}): JSX.Element => {
                 cities.map(e => {
 
                     return (
-                        <CityCard
+                        <CityCardCity
                             key={e.name + e.img}
                             cityObj={e}
                             isActive={city === e.name}
