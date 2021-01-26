@@ -10,6 +10,8 @@
 
 .WeatherCard__div__top {
     @include weatherCardHalf();
+    border-top-left-radius: $borderRadius;
+    border-top-right-radius: $borderRadius;
     color: $colorFont--1;
     box-shadow: 0 1px 30px -9px $color--1;
     z-index: 1;
@@ -19,6 +21,8 @@
 .WeatherCard__div__bottom {
     @include weatherCardHalf();
     background-color: $color--2;
+    border-bottom-right-radius: $borderRadius;
+    border-bottom-left-radius: $borderRadius;
 }
 
 .WeatherCard__div__top__left{
